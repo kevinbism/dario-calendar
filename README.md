@@ -1,29 +1,38 @@
-# README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# Dario who?
 
-### What is this repository for? ###
+Who is Dario? O meglio, chi è Dario? Dario il calendario. Il più efficiente calendario per i tuoi progetti.
+## Come implementare Dario
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Includi i file .css e .js nel tuo progetto
+```html
+<link rel="stylesheet" href="dario.css" />
+<script type="text/javascript" src="dario.js"></script>
+```
 
-### How do I get set up? ###
+Esegui la funzione di Dario:
+```javascript
+initDario()
+```
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
+## Per dare il tuo contributo
 
-* Writing tests
-* Code review
-* Other guidelines
+Clona il progetto
 
-### Who do I talk to? ###
+```bash
+  git clone https://kevinbism@bitbucket.org/kevinbism/dario-calendar.git
+```
 
-* Repo owner or admin
-* Other community or team contact
+Vai sulla cartella del progetto
+
+```bash
+  cd dario-calendar
+```
+
+Ricordati infine di caricare le tue modifiche su Bitbucket.
+## Autori
+
+- Federico Varese
+- Kevin Ramirez [@kevinbism](https://github.com/kevinbism)
+- E chiunque altro voglia contribuire al progetto
