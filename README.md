@@ -6,7 +6,7 @@ Who is Dario? O meglio, chi è Dario? Dario il calendario. Il più efficiente ca
 
 Includi i file .css e .js nel tuo progetto
 ```html
-<link rel="stylesheet" href="dario.css" />
+<link rel="stylesheet" href="dario.css">
 <script type="text/javascript" src="dario.js"></script>
 ```
 
