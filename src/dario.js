@@ -100,13 +100,13 @@ class Dario {
         darioDiv.innerHTML +=
             '<div class="' +
             this.class +
-            '__nav"><div class="' +
+            '-nav"><div class="' +
             this.class +
-            '__nav__left"></div><div class="' +
+            '-nav__left"></div><div class="' +
             this.class +
-            '__nav__center"></div><div class="' +
+            '-nav__center"></div><div class="' +
             this.class +
-            '__nav__right"></div></div>';
+            '-nav__right"></div></div>';
         darioDiv.innerHTML +=
             '<div class="' +
             this.class +
@@ -125,9 +125,9 @@ class Dario {
             '__content__next"></div></div>';
         document.body.appendChild(darioDiv);
         this.container = document.getElementsByClassName(this.class)[0];
-        this.navLeft = document.getElementsByClassName(this.class + "__nav__left")[0];
-        this.navCenter = document.getElementsByClassName(this.class + "__nav__center")[0];
-        this.navRight = document.getElementsByClassName(this.class + "__nav__right")[0];
+        this.navLeft = document.getElementsByClassName(this.class + "-nav__left")[0];
+        this.navCenter = document.getElementsByClassName(this.class + "-nav__center")[0];
+        this.navRight = document.getElementsByClassName(this.class + "-nav__right")[0];
         this.headerCurrent = document.getElementsByClassName(this.class + "__header__current")[0];
         this.headerNext = document.getElementsByClassName(this.class + "__header__next")[0];
         this.contentCurrent = document.getElementsByClassName(this.class + "__content__current")[0];
