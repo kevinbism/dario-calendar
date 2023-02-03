@@ -4,12 +4,11 @@
     --color-text-selected: #ffffff;
     --color-text-selected-inner: #ffffff;
     --color-bg: #ffffff;
-    --color-border: #5434CB;
+    --color-border: #5434cb;
     --color-bg-selectable: #e9e9e9;
-    --color-bg-selected: #5434CB;
-    --color-bg-selected-inner: #765DD5;
+    --color-bg-selected: #5434cb;
+    --color-bg-selected-inner: #765dd5;
 }
-  
 
 .dariowho {
     position: absolute;
@@ -60,7 +59,7 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.dariowho__content .cell{
+.dariowho__content .cell {
     padding: 5px;
 }
 
@@ -69,7 +68,8 @@
     color: var(--color-text-selectable);
 }
 
-.dariowho__content .selected-inner, .dariowho__content .selected-innerh {
+.dariowho__content .selected-inner,
+.dariowho__content .selected-innerh {
     background-color: var(--color-bg-selected-inner);
     color: var(--color-text-selected-inner);
 }

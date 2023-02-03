@@ -1,6 +1,6 @@
 {
   "name": "dario",
-  "description": "Who is Dario? O meglio, chi è Dario? Dario il calendario. Il più efficiente calendario per i tuoi progetti.\r ## Come implementare Dario",
+  "description": "Who is Dario? O meglio, chi è Dario? Dario il calendario. Il più efficiente calendario per i tuoi progetti.",
   "version": "1.0.0",
   "main": "/src/dario.js",
   "scripts": {
