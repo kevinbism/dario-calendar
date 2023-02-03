@@ -1,7 +1,4 @@
 {
-  "devDependencies": {
-    "prettier": "2.8.3"
-  },
   "name": "dario",
   "description": "Who is Dario? O meglio, chi è Dario? Dario il calendario. Il più efficiente calendario per i tuoi progetti.\r ## Come implementare Dario",
   "version": "1.0.0",
@@ -18,5 +15,8 @@
   "bugs": {
     "url": "https://bitbucket.org/kevinbism/dario-calendar/issues"
   },
-  "homepage": "https://bitbucket.org/kevinbism/dario-calendar#readme"
+  "homepage": "https://bitbucket.org/kevinbism/dario-calendar#readme",
+  "devDependencies": {
+    "prettier": "2.8.3"
+  }
 }
