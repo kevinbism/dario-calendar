@@ -45,11 +45,11 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.dario__content {
+.dario-content {
     display: flex;
 }
 
-.dario__content > div {
+.dario-content > div {
     width: 50%;
     padding: 10px;
     display: grid;
@@ -59,22 +59,22 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.dario__content .cell {
+.dario-content .cell {
     padding: 5px;
 }
 
-.dario__content .selectable {
+.dario-content .selectable {
     background-color: var(--color-bg-selectable);
     color: var(--color-text-selectable);
 }
 
-.dario__content .selected-inner,
-.dario__content .selected-innerh {
+.dario-content .selected-inner,
+.dario-content .selected-innerh {
     background-color: var(--color-bg-selected-inner);
     color: var(--color-text-selected-inner);
 }
 
-.dario__content .selected {
+.dario-content .selected {
     background-color: var(--color-bg-selected);
     color: var(--color-text-selected);
 }

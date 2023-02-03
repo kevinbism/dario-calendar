@@ -118,11 +118,11 @@ class Dario {
         darioDiv.innerHTML +=
             '<div class="' +
             this.class +
-            '__content"><div class="' +
+            '-content"><div class="' +
             this.class +
-            '__content__current"></div><div class="' +
+            '-content__current"></div><div class="' +
             this.class +
-            '__content__next"></div></div>';
+            '-content__next"></div></div>';
         document.body.appendChild(darioDiv);
         this.container = document.getElementsByClassName(this.class)[0];
         this.navLeft = document.getElementsByClassName(this.class + "-nav__left")[0];
@@ -130,8 +130,8 @@ class Dario {
         this.navRight = document.getElementsByClassName(this.class + "-nav__right")[0];
         this.headerCurrent = document.getElementsByClassName(this.class + "-header__current")[0];
         this.headerNext = document.getElementsByClassName(this.class + "-header__next")[0];
-        this.contentCurrent = document.getElementsByClassName(this.class + "__content__current")[0];
-        this.contentNext = document.getElementsByClassName(this.class + "__content__next")[0];
+        this.contentCurrent = document.getElementsByClassName(this.class + "-content__current")[0];
+        this.contentNext = document.getElementsByClassName(this.class + "-content__next")[0];
     };
 
     registerEvents = () => {
@@ -156,7 +156,7 @@ class Dario {
 
     registerCellEvents = () => {
         const cellNodes = document.querySelectorAll(
-            "." + this.class + "__content div.cell.selectable"
+            "." + this.class + "-content div.cell.selectable"
         );
         for (var i = 0; i < cellNodes.length; i++) {
             if (this.isSelectable(cellNodes[i])) {
