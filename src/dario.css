@@ -33,11 +33,11 @@
     padding-right: 10px;
 }
 
-.dario__header {
+.dario-header {
     display: flex;
 }
 
-.dario__header > div {
+.dario-header > div {
     width: 50%;
     display: grid;
     text-align: center;

@@ -110,11 +110,11 @@ class Dario {
         darioDiv.innerHTML +=
             '<div class="' +
             this.class +
-            '__header"><div class="' +
+            '-header"><div class="' +
             this.class +
-            '__header__current"></div><div class="' +
+            '-header__current"></div><div class="' +
             this.class +
-            '__header__next"></div></div>';
+            '-header__next"></div></div>';
         darioDiv.innerHTML +=
             '<div class="' +
             this.class +
@@ -128,8 +128,8 @@ class Dario {
         this.navLeft = document.getElementsByClassName(this.class + "-nav__left")[0];
         this.navCenter = document.getElementsByClassName(this.class + "-nav__center")[0];
         this.navRight = document.getElementsByClassName(this.class + "-nav__right")[0];
-        this.headerCurrent = document.getElementsByClassName(this.class + "__header__current")[0];
-        this.headerNext = document.getElementsByClassName(this.class + "__header__next")[0];
+        this.headerCurrent = document.getElementsByClassName(this.class + "-header__current")[0];
+        this.headerNext = document.getElementsByClassName(this.class + "-header__next")[0];
         this.contentCurrent = document.getElementsByClassName(this.class + "__content__current")[0];
         this.contentNext = document.getElementsByClassName(this.class + "__content__next")[0];
     };
