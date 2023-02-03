@@ -10,7 +10,7 @@
     --color-bg-selected-inner: #765dd5;
 }
 
-.dariowho {
+.dario {
     position: absolute;
     top: 0rem;
     left: 0rem;
@@ -20,7 +20,7 @@
     color: var(--color-text);
 }
 
-.dariowho__nav {
+.dario__nav {
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -28,16 +28,16 @@
     border-bottom: 1px solid var(--color-border);
 }
 
-.dariowho__nav__center {
+.dario__nav__center {
     padding-left: 10px;
     padding-right: 10px;
 }
 
-.dariowho__header {
+.dario__header {
     display: flex;
 }
 
-.dariowho__header > div {
+.dario__header > div {
     width: 50%;
     display: grid;
     text-align: center;
@@ -45,11 +45,11 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.dariowho__content {
+.dario__content {
     display: flex;
 }
 
-.dariowho__content > div {
+.dario__content > div {
     width: 50%;
     padding: 10px;
     display: grid;
@@ -59,22 +59,22 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.dariowho__content .cell {
+.dario__content .cell {
     padding: 5px;
 }
 
-.dariowho__content .selectable {
+.dario__content .selectable {
     background-color: var(--color-bg-selectable);
     color: var(--color-text-selectable);
 }
 
-.dariowho__content .selected-inner,
-.dariowho__content .selected-innerh {
+.dario__content .selected-inner,
+.dario__content .selected-innerh {
     background-color: var(--color-bg-selected-inner);
     color: var(--color-text-selected-inner);
 }
 
-.dariowho__content .selected {
+.dario__content .selected {
     background-color: var(--color-bg-selected);
     color: var(--color-text-selected);
 }

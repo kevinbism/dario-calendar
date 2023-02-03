@@ -1,6 +1,6 @@
 let darioSettings = {
     inline: false,
-    class: "dariowho",
+    class: "dario",
     target: null,
     lang: null,
     cbStart: null,
