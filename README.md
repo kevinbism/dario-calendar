@@ -30,6 +30,12 @@ Vai sulla cartella del progetto
   cd dario-calendar
 ```
 
+Installa le dependencies per far funzionare Prettier
+
+```bash
+  npm install
+```
+
 Ricordati infine di caricare le tue modifiche su Bitbucket.
 ## Autori
 
