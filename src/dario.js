@@ -23,11 +23,11 @@ let darioSettings = {
 };
 
 class Dario {
-    constructor(settings) {
-        let newSettings = { ...darioSettings, ...settings };
-        for (const prop in newSettings) {
-            this[prop] = newSettings[prop];
-        }
+    constructor(el, ...settings) {
+        this.otps = { ...darioSettings, ...settings };
+        // for (const prop in newSettings) {
+        //     this[prop] = newSettings[prop];
+        // }
         this.container = null;
         this.navLeft = null;
         this.navCenter = null;
@@ -290,25 +290,26 @@ const dateSelected = (start, end) => {
     console.log(start, end);
 };
 
-let darioInstance = null;
-const initDario = (inlineElement = null) => {
-    if (inlineElement === null) {
-        document.getElementById("dario").addEventListener("click", (event) => {
-            if (darioInstance == null) {
-                darioInstance = new Dario({
-                    target: event.target,
-                    cbEnd: dateSelected,
-                });
-                darioInstance.show();
-            } else {
-                darioInstance.show();
-            }
-        });
-    } else {
-        darioInstance = new Dario({
-            inline: true,
-            target: inlineElement,
-            cbEnd: dateSelected,
-        });
-    }
-};
+// let darioInstance = null;
+// const initDario = (inlineElement = null) => {
+//     if (inlineElement === null) {
+//         document.getElementById("dario").addEventListener("click", (event) => {
+//             if (darioInstance == null) {
+//                 darioInstance = new Dario({
+//                     target: event.target,
+//                     cbEnd: dateSelected,
+//                 });
+//                 darioInstance.show();
+//             } else {
+//                 darioInstance.show();
+//             }
+//             // console.log(darioInstance);
+//         });
+//     } else {
+//         darioInstance = new Dario({
+//             inline: true,
+//             target: inlineElement,
+//             cbEnd: dateSelected,
+//         });
+//     }
+// };
