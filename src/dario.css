@@ -72,6 +72,7 @@
 
 .dario-content .cell:hover {
     background-color: var(--color-bg-selectable);
+    color: var(--color-text);
 }
 
 .dario-content .selectable {

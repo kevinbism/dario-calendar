@@ -5,7 +5,7 @@ let defaults = {
     cbStart: null,
     cbEnd: null,
     container: "",
-    // minDate: new Date(),
+    minDate: "",
     months: [
         "Gennaio",
         "Febbraio",
@@ -33,18 +33,17 @@ class Dario {
             this[prop] = opts[prop];
         }
 
+        if (!this.minDate) {
+            this.minDate = new Date();
+        }
+
         this.$target = this.$el;
         this.$dario = createElement({ className: "dario" });
         this.class = "dario";
         this.startDate = 0;
         this.endDate = 0;
         this.visible = false;
-        this.minDate = this.setMinDate();
-        this.currentDate = new Date(
-            this.minDate.getFullYear(),
-            this.minDate.getMonth(),
-            this.minDate.getDate()
-        );
+        this.currentDate = this.createDate(this.minDate);
         this.visibleDate = new Date(
             this.minDate.getFullYear(),
             this.minDate.getMonth(),
@@ -68,14 +67,19 @@ class Dario {
         });
     }
 
-    setMinDate = (date) => {
-        if (
-            this.target == null ||
-            this.target.getAttribute("data-mindate") == null ||
-            this.target.getAttribute("data-mindate") == ""
-        )
-            return new Date();
-        return new Date(target.getAttribute("data-mindate"));
+    createDate = (date) => {
+        let resultDate = date;
+
+        if (!(date instanceof Date)) {
+            resultDate = new Date(date);
+        }
+
+        if (isNaN(resultDate.getTime())) {
+            console.log(`Unable to convert value "${date}" to Date object`);
+            resultDate = false;
+        }
+
+        return resultDate;
     };
 
     lastDayOfMonth = (date) => {
@@ -89,7 +93,7 @@ class Dario {
 
     show = () => {
         if (!this.visible) {
-            this.create();
+            this.createDOM();
         }
 
         this.visible = true;
@@ -100,10 +104,10 @@ class Dario {
     };
 
     hide = () => {
-        this.container.setAttribute("style", "display: none;");
+        this.$dario.classList.remove("dario--visible");
     };
 
-    create = () => {
+    createDOM = () => {
         let { $dario, classes } = this;
 
         if (classes) {
@@ -232,7 +236,7 @@ class Dario {
 
     renderNavLeft = () => {
         this.navLeft = getEl(".dario-nav-arrow--prev");
-        const isVisible = this.visibleDate.getMonth() > this.minDate.getMonth();
+        let isVisible = this.visibleDate.getMonth() > this.minDate.getMonth();
         this.navLeft.setAttribute(
             "style",
             "visibility:" +
@@ -274,16 +278,17 @@ class Dario {
     renderContent = () => {
         this.contentCurrent = getEl(".dario-content--current");
         this.contentNext = getEl(".dario-content--next");
-        this.contentCurrent.innerHTML = this.renderContentMonth(this.visibleDate);
-        this.contentNext.innerHTML = this.renderContentMonth(this.visibleDateNext);
+        this.contentCurrent.innerHTML = this.renderCell(this.visibleDate);
+        this.contentNext.innerHTML = this.renderCell(this.visibleDateNext);
     };
 
-    renderContentMonth = (date) => {
+    renderCell = (date) => {
         const dayOfWeek = this.dayOfWeek(date);
         let domData = "";
         for (var i = 1 - dayOfWeek; i <= 42 - dayOfWeek; i++) {
             if (i >= 1 && i <= this.lastDayOfMonth(date)) {
                 const current = new Date(date.getFullYear(), date.getMonth(), i).getTime();
+                console.log(this.minDate.getTime());
                 const selected =
                     current == this.startDate || current == this.endDate ? "selected" : "";
                 const selectedInner =
