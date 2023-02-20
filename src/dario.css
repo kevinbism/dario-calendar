@@ -18,6 +18,8 @@
     border: 1px solid var(--color-border);
     background-color: var(--color-bg);
     color: var(--color-text);
+    box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.24);
+    border-radius: 2px;
 }
 
 .dario-nav {
@@ -28,9 +30,10 @@
     border-bottom: 1px solid var(--color-border);
 }
 
-.dario-nav__center {
+.dario-nav-center {
     padding-left: 10px;
     padding-right: 10px;
+    font-weight: 700;
 }
 
 .dario-header {
@@ -42,7 +45,7 @@
     display: grid;
     text-align: center;
     padding: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(7, 1fr);
 }
 
 .dario-content {
@@ -55,16 +58,23 @@
     display: grid;
     column-gap: 5px;
     row-gap: 5px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
 }
 
 .dario-content .cell {
-    padding: 5px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.5s ease;
+}
+
+.dario-content .cell:hover {
+    background-color: var(--color-bg-selectable);
 }
 
 .dario-content .selectable {
-    background-color: var(--color-bg-selectable);
     color: var(--color-text-selectable);
 }
 
