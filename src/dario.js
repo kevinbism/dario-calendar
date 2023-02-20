@@ -1,6 +1,6 @@
-let darioSettings = {
+let defaults = {
     inline: false,
-    class: "dario",
+    className: "dario",
     target: null,
     lang: null,
     cbStart: null,
@@ -24,10 +24,13 @@ let darioSettings = {
 
 class Dario {
     constructor(el, ...settings) {
-        this.otps = { ...darioSettings, ...settings };
-        // for (const prop in newSettings) {
-        //     this[prop] = newSettings[prop];
-        // }
+        this.$el = getEl(el);
+
+        let opts = { ...defaults, ...settings };
+        for (const prop in opts) {
+            this[prop] = opts[prop];
+        }
+
         this.container = null;
         this.navLeft = null;
         this.navCenter = null;
@@ -284,6 +287,10 @@ class Dario {
         }
         return domData;
     };
+}
+
+function getEl(el, context = document) {
+    return typeof el === "string" ? context["querySelector"](el) : el;
 }
 
 const dateSelected = (start, end) => {
