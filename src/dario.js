@@ -1,8 +1,7 @@
 let defaults = {
     inline: false,
-    className: "dario",
-    target: null,
-    lang: null,
+    classes: "",
+    lang: "ita",
     cbStart: null,
     cbEnd: null,
     months: [
@@ -31,6 +30,7 @@ class Dario {
             this[prop] = opts[prop];
         }
 
+        this.$target = this.$el;
         this.container = null;
         this.navLeft = null;
         this.navCenter = null;
