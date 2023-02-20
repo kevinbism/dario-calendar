@@ -23,7 +23,7 @@ let defaults = {
 };
 
 class Dario {
-    constructor(el, ...settings) {
+    constructor(el, settings) {
         this.$el = getEl(el);
         if (!this.$el) return;
 
@@ -33,6 +33,7 @@ class Dario {
         }
 
         this.$target = this.$el;
+        this.$dario = createElement({ className: "dario" });
         this.class = "dario";
         this.container = null;
         this.navLeft = null;
@@ -113,9 +114,13 @@ class Dario {
     };
 
     create = () => {
-        let darioDiv = document.createElement("div");
-        darioDiv.classList.add(this.class);
-        darioDiv.innerHTML +=
+        let { $dario, classes } = this;
+
+        if (classes) {
+            $dario.classList.add(...classes.split(" "));
+        }
+
+        $dario.innerHTML +=
             '<div class="' +
             this.class +
             '-nav"><div class="' +
@@ -125,7 +130,7 @@ class Dario {
             '-nav__center"></div><div class="' +
             this.class +
             '-nav__right"></div></div>';
-        darioDiv.innerHTML +=
+        $dario.innerHTML +=
             '<div class="' +
             this.class +
             '-header"><div class="' +
@@ -133,7 +138,7 @@ class Dario {
             '-header__current"></div><div class="' +
             this.class +
             '-header__next"></div></div>';
-        darioDiv.innerHTML +=
+        $dario.innerHTML +=
             '<div class="' +
             this.class +
             '-content"><div class="' +
@@ -141,7 +146,7 @@ class Dario {
             '-content__current"></div><div class="' +
             this.class +
             '-content__next"></div></div>';
-        document.body.appendChild(darioDiv);
+        document.body.appendChild($dario);
         this.container = document.getElementsByClassName(this.class)[0];
         this.navLeft = document.getElementsByClassName(this.class + "-nav__left")[0];
         this.navCenter = document.getElementsByClassName(this.class + "-nav__center")[0];
@@ -308,23 +313,13 @@ function getEl(el, context = document) {
     return typeof el === "string" ? context["querySelector"](el) : el;
 }
 
-function createElement({
-    tagName = "div",
-    className = "",
-    innerHtml = "",
-    id = "",
-    attrs = {},
-} = {}) {
+function createElement({ tagName = "div", className = "", innerHtml = "", id = "" } = {}) {
     let $element = document.createElement(tagName);
     if (className) $element.classList.add(...className.split(" "));
     if (id) $element.id = id;
 
     if (innerHtml) {
         $element.innerHTML = innerHtml;
-    }
-
-    if (attrs) {
-        setAttribute($element, attrs);
     }
 
     return $element;
