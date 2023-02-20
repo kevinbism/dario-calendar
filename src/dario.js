@@ -4,6 +4,7 @@ let defaults = {
     lang: "ita",
     cbStart: null,
     cbEnd: null,
+    // minDate: new Date(),
     months: [
         "Gennaio",
         "Febbraio",
@@ -305,6 +306,28 @@ class Dario {
 
 function getEl(el, context = document) {
     return typeof el === "string" ? context["querySelector"](el) : el;
+}
+
+function createElement({
+    tagName = "div",
+    className = "",
+    innerHtml = "",
+    id = "",
+    attrs = {},
+} = {}) {
+    let $element = document.createElement(tagName);
+    if (className) $element.classList.add(...className.split(" "));
+    if (id) $element.id = id;
+
+    if (innerHtml) {
+        $element.innerHTML = innerHtml;
+    }
+
+    if (attrs) {
+        setAttribute($element, attrs);
+    }
+
+    return $element;
 }
 
 const dateSelected = (start, end) => {
