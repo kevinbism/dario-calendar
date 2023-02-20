@@ -24,6 +24,7 @@ let defaults = {
 class Dario {
     constructor(el, ...settings) {
         this.$el = getEl(el);
+        if (!this.$el) return;
 
         let opts = { ...defaults, ...settings };
         for (const prop in opts) {
@@ -31,6 +32,7 @@ class Dario {
         }
 
         this.$target = this.$el;
+        this.class = "dario";
         this.container = null;
         this.navLeft = null;
         this.navCenter = null;
@@ -56,6 +58,16 @@ class Dario {
             this.visibleDate.getMonth() + 1,
             1
         );
+
+        this.init();
+    }
+
+    init() {
+        let { $target } = this;
+
+        $target.addEventListener("click", () => {
+            this.show();
+        });
     }
 
     setMinDate = () => {
@@ -78,10 +90,12 @@ class Dario {
     };
 
     show = () => {
+        let { $target } = this;
+
         if (this.container == null) {
             this.create();
         }
-        const rect = this.target.getBoundingClientRect();
+        const rect = $target.getBoundingClientRect();
         let positionX = rect.left;
         let positionY = rect.top + (rect.bottom - rect.top) + window.scrollY;
         this.container.setAttribute(
