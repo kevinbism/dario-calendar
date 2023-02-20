@@ -36,11 +36,6 @@ class Dario {
         this.$target = this.$el;
         this.$dario = createElement({ className: "dario" });
         this.class = "dario";
-        this.navLeft = null;
-        this.navCenter = null;
-        this.navRight = null;
-        this.header = null;
-        this.content = null;
         this.startDate = 0;
         this.endDate = 0;
         this.visible = false;
@@ -73,7 +68,7 @@ class Dario {
         });
     }
 
-    setMinDate = () => {
+    setMinDate = (date) => {
         if (
             this.target == null ||
             this.target.getAttribute("data-mindate") == null ||
@@ -98,6 +93,7 @@ class Dario {
         }
 
         this.visible = true;
+        this.$dario.classList.add("dario--visible");
         this.setPosition();
         this.render();
         this.registerEvents();
