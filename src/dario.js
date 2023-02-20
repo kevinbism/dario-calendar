@@ -114,40 +114,10 @@ class Dario {
             $dario.classList.add(...classes.split(" "));
         }
 
-        $dario.innerHTML +=
-            '<div class="' +
-            this.class +
-            '-nav"><div class="' +
-            this.class +
-            '-nav__left"></div><div class="' +
-            this.class +
-            '-nav__center"></div><div class="' +
-            this.class +
-            '-nav__right"></div></div>';
-        $dario.innerHTML +=
-            '<div class="' +
-            this.class +
-            '-header"><div class="' +
-            this.class +
-            '-header__current"></div><div class="' +
-            this.class +
-            '-header__next"></div></div>';
-        $dario.innerHTML +=
-            '<div class="' +
-            this.class +
-            '-content"><div class="' +
-            this.class +
-            '-content__current"></div><div class="' +
-            this.class +
-            '-content__next"></div></div>';
+        this._buildNav();
+        this._buildHeader();
+        this._buildContent();
         document.body.appendChild($dario);
-        this.navLeft = document.getElementsByClassName(this.class + "-nav__left")[0];
-        this.navCenter = document.getElementsByClassName(this.class + "-nav__center")[0];
-        this.navRight = document.getElementsByClassName(this.class + "-nav__right")[0];
-        this.headerCurrent = document.getElementsByClassName(this.class + "-header__current")[0];
-        this.headerNext = document.getElementsByClassName(this.class + "-header__next")[0];
-        this.contentCurrent = document.getElementsByClassName(this.class + "-content__current")[0];
-        this.contentNext = document.getElementsByClassName(this.class + "-content__next")[0];
     };
 
     setPosition = () => {
@@ -156,6 +126,34 @@ class Dario {
         let posX = pos.left;
         let posY = pos.top + (pos.bottom - pos.top) + window.scrollY;
         this.$dario.style.cssText = `display: block; top: ${posY}px; left: ${posX}px`;
+    };
+
+    _buildNav = () => {
+        let template = `<div class="dario-nav">
+            <div class="dario-nav-arrow dario-nav-arrow--prev"></div>
+            <div class="dario-nav-center"></div>
+            <div class="dario-nav-arrow dario-nav-arrow--next"></div>
+        </div>`;
+
+        this.$dario.innerHTML += template;
+    };
+
+    _buildHeader = () => {
+        let template = `<div class="dario-header">
+            <div class="dario-header--current"></div>
+            <div class="dario-header--next"></div>
+        </div>`;
+
+        this.$dario.innerHTML += template;
+    };
+
+    _buildContent = () => {
+        let template = `<div class="dario-content">
+            <div class="dario-content--current"></div>
+            <div class="dario-content--next"></div>
+        </div>`;
+
+        this.$dario.innerHTML += template;
     };
 
     registerEvents = () => {
@@ -237,6 +235,7 @@ class Dario {
     };
 
     renderNavLeft = () => {
+        this.navLeft = getEl(".dario-nav-arrow--prev");
         const isVisible = this.visibleDate.getMonth() > this.minDate.getMonth();
         this.navLeft.setAttribute(
             "style",
@@ -249,10 +248,12 @@ class Dario {
     };
 
     renderNavRight = () => {
+        this.navRight = getEl(".dario-nav-arrow--next");
         this.navRight.innerHTML = ">";
     };
 
     renderNavCenter = () => {
+        this.navCenter = getEl(".dario-nav-center");
         this.navCenter.innerHTML =
             this.months[this.visibleDate.getMonth()] +
             " " +
@@ -264,6 +265,8 @@ class Dario {
     };
 
     renderHeader = () => {
+        this.headerCurrent = getEl(".dario-header--current");
+        this.headerNext = getEl(".dario-header--next");
         this.headerCurrent.innerHTML = "";
         this.headerNext.innerHTML = "";
         for (var i = 0; i < 7; i++) {
@@ -273,6 +276,8 @@ class Dario {
     };
 
     renderContent = () => {
+        this.contentCurrent = getEl(".dario-content--current");
+        this.contentNext = getEl(".dario-content--next");
         this.contentCurrent.innerHTML = this.renderContentMonth(this.visibleDate);
         this.contentNext.innerHTML = this.renderContentMonth(this.visibleDateNext);
     };
@@ -314,14 +319,10 @@ function getEl(el, context = document) {
     return typeof el === "string" ? context["querySelector"](el) : el;
 }
 
-function createElement({ tagName = "div", className = "", innerHtml = "", id = "" } = {}) {
+function createElement({ tagName = "div", className = "", id = "" } = {}) {
     let $element = document.createElement(tagName);
     if (className) $element.classList.add(...className.split(" "));
     if (id) $element.id = id;
-
-    if (innerHtml) {
-        $element.innerHTML = innerHtml;
-    }
 
     return $element;
 }
