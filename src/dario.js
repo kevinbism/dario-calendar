@@ -4,6 +4,7 @@ let defaults = {
     lang: "ita",
     cbStart: null,
     cbEnd: null,
+    container: "",
     // minDate: new Date(),
     months: [
         "Gennaio",
@@ -35,7 +36,6 @@ class Dario {
         this.$target = this.$el;
         this.$dario = createElement({ className: "dario" });
         this.class = "dario";
-        this.container = null;
         this.navLeft = null;
         this.navCenter = null;
         this.navRight = null;
@@ -43,6 +43,7 @@ class Dario {
         this.content = null;
         this.startDate = 0;
         this.endDate = 0;
+        this.visible = false;
         this.minDate = this.setMinDate();
         this.currentDate = new Date(
             this.minDate.getFullYear(),
@@ -92,19 +93,12 @@ class Dario {
     };
 
     show = () => {
-        let { $target } = this;
-
-        if (this.container == null) {
+        if (!this.visible) {
             this.create();
         }
-        const rect = $target.getBoundingClientRect();
-        let positionX = rect.left;
-        let positionY = rect.top + (rect.bottom - rect.top) + window.scrollY;
-        this.container.setAttribute(
-            "style",
-            "display: block;top:" + positionY + "px;left:" + positionX + "px;"
-        );
 
+        this.visible = true;
+        this.setPosition();
         this.render();
         this.registerEvents();
     };
@@ -147,7 +141,6 @@ class Dario {
             this.class +
             '-content__next"></div></div>';
         document.body.appendChild($dario);
-        this.container = document.getElementsByClassName(this.class)[0];
         this.navLeft = document.getElementsByClassName(this.class + "-nav__left")[0];
         this.navCenter = document.getElementsByClassName(this.class + "-nav__center")[0];
         this.navRight = document.getElementsByClassName(this.class + "-nav__right")[0];
@@ -155,6 +148,14 @@ class Dario {
         this.headerNext = document.getElementsByClassName(this.class + "-header__next")[0];
         this.contentCurrent = document.getElementsByClassName(this.class + "-content__current")[0];
         this.contentNext = document.getElementsByClassName(this.class + "-content__next")[0];
+    };
+
+    setPosition = () => {
+        let { $target } = this;
+        let pos = $target.getBoundingClientRect();
+        let posX = pos.left;
+        let posY = pos.top + (pos.bottom - pos.top) + window.scrollY;
+        this.$dario.style.cssText = `display: block; top: ${posY}px; left: ${posX}px`;
     };
 
     registerEvents = () => {
