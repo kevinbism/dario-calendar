@@ -1,9 +1,10 @@
 :root {
-    --color-text: #000000;
-    --color-text-selectable: #000000;
-    --color-text-selected: #ffffff;
-    --color-text-selected-inner: #ffffff;
-    --color-bg: #ffffff;
+    --color-text: #000;
+    --color-text-selectable: #000;
+    --color-text-selected: #fff;
+    --color-text-selected-inner: #fff;
+    --color-text-disable: #949494;
+    --color-bg: #fff;
     --color-border: #5434cb;
     --color-bg-selectable: #e9e9e9;
     --color-bg-selected: #5434cb;
@@ -76,11 +77,6 @@
 
 .dario-cell:hover {
     background-color: var(--color-bg-selectable);
-    color: var(--color-text);
-}
-
-.dario-content .selectable {
-    color: var(--color-text-selectable);
 }
 
 .dario-content .selected-inner,
@@ -89,7 +85,12 @@
     color: var(--color-text-selected-inner);
 }
 
-.dario-content .selected {
+.dario-cell--selected {
     background-color: var(--color-bg-selected);
     color: var(--color-text-selected);
+}
+
+.dario-cell--disable {
+    color: var(--color-text-disable);
+    cursor: default;
 }

@@ -272,9 +272,10 @@ class Dario {
                     year: yy,
                     time: current,
                 } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
-                let selected = today == current && this.selectedDate ? "selected" : "";
+                let selected = today == current && this.selectedDate ? "dario-cell--selected" : "";
+                let disable = current < today ? "dario-cell--disable" : "";
 
-                cell += `<div class="dario-cell selectable ${selected}" data-selectable="true" data-day="${dd}" data-month="${mm}" data-year="${yy}">${d}</div>`;
+                cell += `<div class="dario-cell selectable ${selected} ${disable}" data-selectable="true" data-day="${dd}" data-month="${mm}" data-year="${yy}">${d}</div>`;
             } else {
                 cell += '<div class="dario-cell dario-cell--disable"></div>';
             }
