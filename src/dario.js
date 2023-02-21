@@ -6,6 +6,7 @@ let defaults = {
     cbEnd: null,
     container: "",
     minDate: "",
+    selectedDate: true,
     months: [
         "Gennaio",
         "Febbraio",
@@ -259,10 +260,11 @@ class Dario {
     };
 
     renderCell = (date) => {
-        let dayOfWeek = this.dayOfWeek(date);
+        let dow = dayOfWeek(date);
         let cell = "";
-        for (var i = 1 - dayOfWeek; i <= 42 - dayOfWeek; i++) {
-            if (i >= 1 && i <= this.lastDayOfMonth(date)) {
+        let { time: today } = getParsedDate(resetTime(this.minDate));
+        for (var i = 1 - dow; i <= 42 - dow; i++) {
+            if (i >= 1 && i <= lastDayOfMonth(date)) {
                 let {
                     date: d,
                     fullDate: dd,
@@ -270,8 +272,7 @@ class Dario {
                     year: yy,
                     time: current,
                 } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
-                let selected =
-                    current == this.startDate || current == this.endDate ? "selected" : "";
+                let selected = today == current && this.selectedDate ? "selected" : "";
 
                 cell += `<div class="dario-cell selectable ${selected}" data-selectable="true" data-day="${dd}" data-month="${mm}" data-year="${yy}">${d}</div>`;
             } else {
@@ -279,15 +280,6 @@ class Dario {
             }
         }
         return cell;
-    };
-
-    lastDayOfMonth = (date) => {
-        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    };
-
-    dayOfWeek = (date) => {
-        const day = date.getDay();
-        return day == 0 ? 6 : day - 1;
     };
 }
 
@@ -319,9 +311,19 @@ function getLeadingZeroNum(num) {
     return num < 10 ? "0" + num : num;
 }
 
-const dateSelected = (start, end) => {
-    console.log(start, end);
-};
+function resetTime(date) {
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+
+function lastDayOfMonth(date) {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+}
+
+function dayOfWeek(date) {
+    const day = date.getDay();
+    return day == 0 ? 6 : day - 1;
+}
 
 // let darioInstance = null;
 // const initDario = (inlineElement = null) => {
