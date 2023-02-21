@@ -30,6 +30,10 @@
     border-bottom: 1px solid var(--color-border);
 }
 
+.dario-nav-arrow {
+    cursor: pointer;
+}
+
 .dario-nav-center {
     padding-left: 10px;
     padding-right: 10px;
@@ -62,7 +66,7 @@
     grid-template-rows: repeat(6, 1fr);
 }
 
-.dario-content .cell {
+.dario-cell {
     padding: 8px;
     text-align: center;
     cursor: pointer;
@@ -70,7 +74,7 @@
     transition: background-color 0.5s ease;
 }
 
-.dario-content .cell:hover {
+.dario-cell:hover {
     background-color: var(--color-bg-selectable);
     color: var(--color-text);
 }

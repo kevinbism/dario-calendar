@@ -43,7 +43,7 @@ class Dario {
         this.startDate = 0;
         this.endDate = 0;
         this.visible = false;
-        this.currentDate = this.createDate(this.minDate);
+        this.currentDate = createDate(this.minDate);
         this.visibleDate = new Date(
             this.minDate.getFullYear(),
             this.minDate.getMonth(),
@@ -66,30 +66,6 @@ class Dario {
             this.show();
         });
     }
-
-    createDate = (date) => {
-        let resultDate = date;
-
-        if (!(date instanceof Date)) {
-            resultDate = new Date(date);
-        }
-
-        if (isNaN(resultDate.getTime())) {
-            console.log(`Unable to convert value "${date}" to Date object`);
-            resultDate = false;
-        }
-
-        return resultDate;
-    };
-
-    lastDayOfMonth = (date) => {
-        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-    };
-
-    dayOfWeek = (date) => {
-        const day = date.getDay();
-        return day == 0 ? 6 : day - 1;
-    };
 
     show = () => {
         if (!this.visible) {
@@ -283,36 +259,35 @@ class Dario {
     };
 
     renderCell = (date) => {
-        const dayOfWeek = this.dayOfWeek(date);
-        let domData = "";
+        let dayOfWeek = this.dayOfWeek(date);
+        let cell = "";
         for (var i = 1 - dayOfWeek; i <= 42 - dayOfWeek; i++) {
             if (i >= 1 && i <= this.lastDayOfMonth(date)) {
-                const current = new Date(date.getFullYear(), date.getMonth(), i).getTime();
-                console.log(this.minDate.getTime());
-                const selected =
+                let {
+                    date: d,
+                    fullDate: dd,
+                    fullMonth: mm,
+                    year: yy,
+                    time: current,
+                } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
+                let selected =
                     current == this.startDate || current == this.endDate ? "selected" : "";
-                const selectedInner =
-                    this.startDate > 0 &&
-                    this.endDate > 0 &&
-                    current > this.startDate &&
-                    current < this.endDate
-                        ? "selected-inner"
-                        : "";
-                domData +=
-                    '<div data-selectable="true" data-day="' +
-                    current +
-                    '" class="cell selectable ' +
-                    selected +
-                    " " +
-                    selectedInner +
-                    '">' +
-                    i +
-                    "</div>";
+
+                cell += `<div class="dario-cell selectable ${selected}" data-selectable="true" data-day="${dd}" data-month="${mm}" data-year="${yy}">${d}</div>`;
             } else {
-                domData += '<div class="cell nomonth">&nbsp;</div>';
+                cell += '<div class="dario-cell dario-cell--disable"></div>';
             }
         }
-        return domData;
+        return cell;
+    };
+
+    lastDayOfMonth = (date) => {
+        return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    };
+
+    dayOfWeek = (date) => {
+        const day = date.getDay();
+        return day == 0 ? 6 : day - 1;
     };
 }
 
@@ -326,6 +301,37 @@ function createElement({ tagName = "div", className = "", id = "" } = {}) {
     if (id) $element.id = id;
 
     return $element;
+}
+
+function createDate(date) {
+    let resultDate = date;
+
+    if (!(date instanceof Date)) {
+        resultDate = new Date(date);
+    }
+
+    if (isNaN(resultDate.getTime())) {
+        console.log(`Unable to convert value "${date}" to Date object`);
+        resultDate = false;
+    }
+
+    return resultDate;
+}
+
+function getParsedDate(date) {
+    return {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        fullMonth: date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1,
+        date: date.getDate(),
+        fullDate: date.getDate() < 10 ? "0" + date.getDate() : date.getDate(),
+        day: date.getDay(),
+        time: date.getTime(),
+    };
+}
+
+function getLeadingZeroNum(num) {
+    return num < 10 ? "0" + num : num;
 }
 
 const dateSelected = (start, end) => {
