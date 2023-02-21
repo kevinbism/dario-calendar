@@ -212,21 +212,16 @@ class Dario {
     };
 
     renderNavLeft = () => {
+        let visible = this.visibleDate.getMonth() > this.minDate.getMonth();
         this.navLeft = getEl(".dario-nav-arrow--prev");
-        let isVisible = this.visibleDate.getMonth() > this.minDate.getMonth();
-        this.navLeft.setAttribute(
-            "style",
-            "visibility:" +
-                (isVisible ? "visible" : "hidden") +
-                ";pointer-events:" +
-                (isVisible ? "unset" : "none")
-        );
-        this.navLeft.innerHTML = "<";
+
+        this.navLeft.style.cssText = `visibility: ${visible ? "visible" : "hidden"}`;
+        this.navLeft.innerHTML = '<svg><path d="M 17,12 l -5,5 l 5,5"></path></svg>';
     };
 
     renderNavRight = () => {
         this.navRight = getEl(".dario-nav-arrow--next");
-        this.navRight.innerHTML = ">";
+        this.navRight.innerHTML = '<svg><path d="M 14,12 l 5,5 l -5,5"></path></svg>';
     };
 
     renderNavCenter = () => {
@@ -263,6 +258,7 @@ class Dario {
         let dow = dayOfWeek(date);
         let cell = "";
         let { time: today } = getParsedDate(resetTime(this.minDate));
+
         for (var i = 1 - dow; i <= 42 - dow; i++) {
             if (i >= 1 && i <= lastDayOfMonth(date)) {
                 let {
@@ -272,10 +268,10 @@ class Dario {
                     year: yy,
                     time: current,
                 } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
-                let selected = today == current && this.selectedDate ? "dario-cell--selected" : "";
-                let disable = current < today ? "dario-cell--disable" : "";
+                let selected = today == current && this.selectedDate ? " dario-cell--selected" : "";
+                let disable = current < today ? " dario-cell--disable" : "";
 
-                cell += `<div class="dario-cell selectable ${selected} ${disable}" data-selectable="true" data-day="${dd}" data-month="${mm}" data-year="${yy}">${d}</div>`;
+                cell += `<div class="dario-cell${selected}${disable}" data-day="${dd}" data-month="${mm}" data-year="${yy}">${d}</div>`;
             } else {
                 cell += '<div class="dario-cell dario-cell--disable"></div>';
             }
@@ -306,10 +302,6 @@ function getParsedDate(date) {
         day: date.getDay(),
         time: date.getTime(),
     };
-}
-
-function getLeadingZeroNum(num) {
-    return num < 10 ? "0" + num : num;
 }
 
 function resetTime(date) {
