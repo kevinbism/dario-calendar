@@ -2,11 +2,10 @@ let defaults = {
     inline: false,
     classes: "",
     lang: "ita",
-    cbStart: null,
-    cbEnd: null,
     container: "",
     minDate: "",
     selectedDate: true,
+    range: false,
     months: [
         "Gennaio",
         "Febbraio",
@@ -61,11 +60,15 @@ class Dario {
     }
 
     init() {
-        let { $target } = this;
+        let { $target, inline } = this;
 
-        $target.addEventListener("click", () => {
+        if (!inline) {
+            $target.addEventListener("click", () => {
+                this.show();
+            });
+        } else {
             this.show();
-        });
+        }
     }
 
     show = () => {
@@ -75,7 +78,11 @@ class Dario {
 
         this.visible = true;
         this.$dario.classList.add("dario--visible");
-        this.setPosition();
+
+        if (!this.inline) {
+            this.setPosition();
+        }
+
         this.render();
         this.registerEvents();
     };
@@ -139,13 +146,13 @@ class Dario {
     };
 
     registerNavEvents = () => {
-        this.navLeft.addEventListener("click", (event) => {
+        this.navLeft.addEventListener("click", () => {
             this.visibleDate.setMonth(this.visibleDate.getMonth() - 1);
             this.visibleDateNext.setMonth(this.visibleDateNext.getMonth() - 1);
             this.render();
             this.registerCellEvents();
         });
-        this.navRight.addEventListener("click", (event) => {
+        this.navRight.addEventListener("click", () => {
             this.visibleDate.setMonth(this.visibleDate.getMonth() + 1);
             this.visibleDateNext.setMonth(this.visibleDateNext.getMonth() + 1);
             this.render();
@@ -154,9 +161,7 @@ class Dario {
     };
 
     registerCellEvents = () => {
-        const cellNodes = document.querySelectorAll(
-            "." + this.class + "-content div.cell.selectable"
-        );
+        const cellNodes = document.querySelectorAll(".dario-cell");
         for (var i = 0; i < cellNodes.length; i++) {
             if (this.isSelectable(cellNodes[i])) {
                 cellNodes[i].addEventListener("click", (event) => {
@@ -168,7 +173,6 @@ class Dario {
                             this.startDate = checkDate.getTime();
                         } else {
                             this.endDate = checkDate.getTime();
-                            this.cbEnd(this.startDate, this.endDate);
                         }
                     } else {
                         this.startDate = checkDate.getTime();
@@ -226,14 +230,11 @@ class Dario {
 
     renderNavCenter = () => {
         this.navCenter = getEl(".dario-nav-center");
-        this.navCenter.innerHTML =
-            this.months[this.visibleDate.getMonth()] +
-            " " +
-            this.visibleDate.getFullYear() +
-            " - " +
-            this.months[this.visibleDateNext.getMonth()] +
-            " " +
-            this.visibleDateNext.getFullYear();
+        this.navCenter.innerHTML = `${
+            this.months[this.visibleDate.getMonth()]
+        } ${this.visibleDate.getFullYear()} - ${
+            this.months[this.visibleDateNext.getMonth()]
+        } ${this.visibleDateNext.getFullYear()}`;
     };
 
     renderHeader = () => {
@@ -241,9 +242,10 @@ class Dario {
         this.headerNext = getEl(".dario-header--next");
         this.headerCurrent.innerHTML = "";
         this.headerNext.innerHTML = "";
-        for (var i = 0; i < 7; i++) {
-            this.headerCurrent.innerHTML += "<div>" + this.days[i].substring(0, 2) + "</div>";
-            this.headerNext.innerHTML += "<div>" + this.days[i].substring(0, 2) + "</div>";
+
+        for (let i = 0; i < 7; i++) {
+            this.headerCurrent.innerHTML += `<div>${this.days[i].substring(0, 2)}</div>`;
+            this.headerNext.innerHTML += `<div>${this.days[i].substring(0, 2)}</div>`;
         }
     };
 
