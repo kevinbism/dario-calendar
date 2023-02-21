@@ -43,7 +43,7 @@ class Dario {
         this.startDate = 0;
         this.endDate = 0;
         this.visible = false;
-        this.currentDate = createDate(this.minDate);
+        this.currentDate = this.minDate;
         this.visibleDate = new Date(
             this.minDate.getFullYear(),
             this.minDate.getMonth(),
@@ -301,21 +301,6 @@ function createElement({ tagName = "div", className = "", id = "" } = {}) {
     if (id) $element.id = id;
 
     return $element;
-}
-
-function createDate(date) {
-    let resultDate = date;
-
-    if (!(date instanceof Date)) {
-        resultDate = new Date(date);
-    }
-
-    if (isNaN(resultDate.getTime())) {
-        console.log(`Unable to convert value "${date}" to Date object`);
-        resultDate = false;
-    }
-
-    return resultDate;
 }
 
 function getParsedDate(date) {
