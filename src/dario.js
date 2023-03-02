@@ -91,15 +91,18 @@ class Dario {
     };
 
     createDOM = () => {
-        let { $dario, classes } = this;
+        let { $dario, classes, range } = this;
 
         if (classes) {
             $dario.classList.add(...classes.split(" "));
         }
 
         this._buildNav();
-        this._buildHeader();
-        this._buildContent();
+        this._buildContainer();
+        this._buildInner("dario-inner--current");
+
+        if (range) this._buildInner("dario-inner--next");
+
         document.body.appendChild($dario);
     };
 
@@ -121,22 +124,36 @@ class Dario {
         this.$dario.innerHTML += template;
     };
 
-    _buildHeader = () => {
-        let template = `<div class="dario-header">
-            <div class="dario-header--current"></div>
-            <div class="dario-header--next"></div>
-        </div>`;
+    _buildContainer = () => {
+        let { range } = this;
+        let container = createElement({ className: "dario-container" });
 
-        this.$dario.innerHTML += template;
+        if (range) container.classList.add("dario-container--multi");
+
+        this.$dario.appendChild(container);
     };
 
-    _buildContent = () => {
-        let template = `<div class="dario-content">
-            <div class="dario-content--current"></div>
-            <div class="dario-content--next"></div>
+    _buildInner = (className) => {
+        let inner = createElement({ className: `dario-inner ${className}` });
+        this.$dario.querySelector(".dario-container").appendChild(inner);
+        this._buildHeader(inner);
+        this._buildContent(inner);
+    };
+
+    _buildHeader = (el) => {
+        let template = `<div class="dario-header">
+            <div class="dario-header-week"></div>
         </div>`;
 
-        this.$dario.innerHTML += template;
+        el.innerHTML += template;
+    };
+
+    _buildContent = (el) => {
+        let template = `<div class="dario-content">
+            <div class="dario-content-days"></div>
+        </div>`;
+
+        el.innerHTML += template;
     };
 
     registerEvents = () => {
@@ -213,16 +230,12 @@ class Dario {
         // }
     };
 
-    isSelectable = (element) => {
-        return element.getAttribute("data-selectable") != "";
-    };
-
     renderCore = () => {
         this.renderNavLeft();
         this.renderNavRight();
         this.renderNavCenter();
         this.renderHeader();
-        this.renderContent();
+        // this.renderContent();
     };
 
     render = () => {
@@ -248,20 +261,20 @@ class Dario {
         this.navCenter = getEl(".dario-nav-center");
         this.navCenter.innerHTML = `${
             this.months[this.visibleDate.getMonth()]
-        } ${this.visibleDate.getFullYear()} - ${
-            this.months[this.visibleDateNext.getMonth()]
-        } ${this.visibleDateNext.getFullYear()}`;
+        } ${this.visibleDate.getFullYear()}`;
+        if (this.range) {
+            this.navCenter.innerHTML += `- ${
+                this.months[this.visibleDateNext.getMonth()]
+            } ${this.visibleDateNext.getFullYear()}`;
+        }
     };
 
     renderHeader = () => {
-        this.headerCurrent = getEl(".dario-header--current");
-        this.headerNext = getEl(".dario-header--next");
-        this.headerCurrent.innerHTML = "";
-        this.headerNext.innerHTML = "";
+        let header = getEl(".dario-inner--current .dario-header-week");
+        header.innerHTML = "";
 
         for (let i = 0; i < 7; i++) {
-            this.headerCurrent.innerHTML += `<div>${this.days[i].substring(0, 2)}</div>`;
-            this.headerNext.innerHTML += `<div>${this.days[i].substring(0, 2)}</div>`;
+            header.innerHTML += `<div>${this.days[i].substring(0, 2)}</div>`;
         }
     };
 
@@ -269,7 +282,10 @@ class Dario {
         this.contentCurrent = getEl(".dario-content--current");
         this.contentNext = getEl(".dario-content--next");
         this.contentCurrent.innerHTML = this.renderCell(this.visibleDate);
-        this.contentNext.innerHTML = this.renderCell(this.visibleDateNext);
+
+        if (this.range) {
+            this.contentNext.innerHTML = this.renderCell(this.visibleDateNext);
+        }
     };
 
     renderCell = (date) => {

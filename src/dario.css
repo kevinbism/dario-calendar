@@ -58,15 +58,17 @@
 }
 
 .dario-header {
-    display: flex;
+    display: block;
 }
 
-.dario-header > div {
-    width: 50%;
+.dario-header-week {
     display: grid;
     text-align: center;
-    padding: 10px;
     grid-template-columns: repeat(7, 1fr);
+}
+
+.dario-header-week div {
+    padding: 10px;
 }
 
 .dario-content {
