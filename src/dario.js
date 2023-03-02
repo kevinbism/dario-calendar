@@ -4,7 +4,6 @@ let defaults = {
     lang: "ita",
     container: "",
     minDate: "",
-    selectedDate: true,
     range: false,
     months: [
         "Gennaio",
@@ -83,7 +82,7 @@ class Dario {
             this.setPosition();
         }
 
-        this.render();
+        this.renderCore();
         this.registerEvents();
     };
 
@@ -161,57 +160,74 @@ class Dario {
     };
 
     registerCellEvents = () => {
-        const cellNodes = document.querySelectorAll(".dario-cell");
-        for (var i = 0; i < cellNodes.length; i++) {
-            if (this.isSelectable(cellNodes[i])) {
-                cellNodes[i].addEventListener("click", (event) => {
-                    const checkDate = new Date(parseInt(event.target.getAttribute("data-day")));
-                    if (this.startDate == 0) {
-                        this.startDate = checkDate.getTime();
-                    } else if (this.endDate == 0) {
-                        if (checkDate.getTime() <= this.startDate) {
-                            this.startDate = checkDate.getTime();
-                        } else {
-                            this.endDate = checkDate.getTime();
-                        }
-                    } else {
-                        this.startDate = checkDate.getTime();
-                        this.endDate = 0;
-                    }
-                    this.render();
-                    this.registerCellEvents();
-                });
-                cellNodes[i].addEventListener("mouseover", (event) => {
-                    const currentTime = parseInt(event.target.getAttribute("data-day"));
-                    for (var inner = 0; inner < cellNodes.length; inner++) {
-                        const innerNode = cellNodes[inner];
-                        innerNode.classList.remove("selected-innerh");
-                        if (
-                            currentTime > this.startDate &&
-                            this.isSelectable(innerNode) &&
-                            this.startDate > 0 &&
-                            this.endDate == 0
-                        ) {
-                            const innerTime = parseInt(innerNode.getAttribute("data-day"));
-                            if (innerTime > this.startDate && innerTime <= currentTime) {
-                                innerNode.classList.add("selected-innerh");
-                            }
-                        }
-                    }
-                });
-            }
-        }
+        const cellNodes = document.querySelectorAll(".dario-cell:not(.dario-cell--disable)");
+        console.log(cellNodes);
+        cellNodes.forEach((cell) => {
+            cell.addEventListener("click", (e) => {
+                // console.log(typeof cell.dataset.date);
+                let { date } = cell.dataset;
+                let { time } = getParsedDate(new Date(date));
+                removeCellSelected(cellNodes);
+                console.log(time);
+                cell.classList.add("dario-cell--selected");
+            });
+        });
+        // for (let i = 0; i < cellNodes.length; i++) {
+        //     if (this.isSelectable(cellNodes[i])) {
+        //         cellNodes[i].addEventListener("click", (event) => {
+        //             const checkDate = new Date(parseInt(event.target.getAttribute("data-day")));
+        //             if (this.startDate == 0) {
+        //                 this.startDate = checkDate.getTime();
+        //             } else if (this.endDate == 0) {
+        //                 if (checkDate.getTime() <= this.startDate) {
+        //                     this.startDate = checkDate.getTime();
+        //                 } else {
+        //                     this.endDate = checkDate.getTime();
+        //                 }
+        //             } else {
+        //                 this.startDate = checkDate.getTime();
+        //                 this.endDate = 0;
+        //             }
+        //             this.render();
+        //             this.registerCellEvents();
+        //         });
+        //         cellNodes[i].addEventListener("mouseover", (event) => {
+        //             const currentTime = parseInt(event.target.getAttribute("data-day"));
+        //             for (var inner = 0; inner < cellNodes.length; inner++) {
+        //                 const innerNode = cellNodes[inner];
+        //                 innerNode.classList.remove("selected-innerh");
+        //                 if (
+        //                     currentTime > this.startDate &&
+        //                     this.isSelectable(innerNode) &&
+        //                     this.startDate > 0 &&
+        //                     this.endDate == 0
+        //                 ) {
+        //                     const innerTime = parseInt(innerNode.getAttribute("data-day"));
+        //                     if (innerTime > this.startDate && innerTime <= currentTime) {
+        //                         innerNode.classList.add("selected-innerh");
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     }
+        // }
     };
 
     isSelectable = (element) => {
         return element.getAttribute("data-selectable") != "";
     };
 
-    render = () => {
+    renderCore = () => {
         this.renderNavLeft();
         this.renderNavRight();
         this.renderNavCenter();
         this.renderHeader();
+        this.renderContent();
+    };
+
+    render = () => {
+        this.renderNavLeft();
+        this.renderNavCenter();
         this.renderContent();
     };
 
@@ -270,10 +286,10 @@ class Dario {
                     year: yy,
                     time: current,
                 } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
-                let selected = today == current && this.selectedDate ? " dario-cell--selected" : "";
+                let selected = today == current && !this.range ? " dario-cell--selected" : "";
                 let disable = current < today ? " dario-cell--disable" : "";
 
-                cell += `<div class="dario-cell${selected}${disable}" data-day="${dd}" data-month="${mm}" data-year="${yy}">${d}</div>`;
+                cell += `<div class="dario-cell${selected}${disable}" data-date="${yy}-${mm}-${dd}">${d}</div>`;
             } else {
                 cell += '<div class="dario-cell dario-cell--disable"></div>';
             }
@@ -318,6 +334,12 @@ function lastDayOfMonth(date) {
 function dayOfWeek(date) {
     const day = date.getDay();
     return day == 0 ? 6 : day - 1;
+}
+
+function removeCellSelected(elements) {
+    elements.forEach((el) => {
+        el.classList.remove("dario-cell--selected");
+    });
 }
 
 // let darioInstance = null;
