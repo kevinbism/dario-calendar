@@ -59,7 +59,10 @@ class Dario {
     }
 
     init() {
-        let { $target, inline } = this;
+        let { $target, inline, minDate } = this;
+        let today = getParsedDate(minDate);
+
+        $target.value = `${today.fullDate}-${today.fullMonth}-${today.year}`;
 
         if (!inline) {
             $target.addEventListener("click", () => {
@@ -87,6 +90,7 @@ class Dario {
     };
 
     hide = () => {
+        this.$dario.style.cssText = "display: none";
         this.$dario.classList.remove("dario--visible");
     };
 
@@ -125,11 +129,8 @@ class Dario {
     };
 
     _buildContainer = () => {
-        let { range } = this;
         let container = createElement({ className: "dario-container" });
-
-        if (range) container.classList.add("dario-container--multi");
-
+        if (this.range) container.classList.add("dario-container--multi");
         this.$dario.appendChild(container);
     };
 
@@ -162,72 +163,36 @@ class Dario {
     };
 
     registerNavEvents = () => {
-        this.navLeft.addEventListener("click", () => {
+        let prev = getEl(".dario-nav-arrow--prev");
+        let next = getEl(".dario-nav-arrow--next");
+
+        prev.addEventListener("click", () => {
             this.visibleDate.setMonth(this.visibleDate.getMonth() - 1);
-            this.visibleDateNext.setMonth(this.visibleDateNext.getMonth() - 1);
             this.render();
-            this.registerCellEvents();
+            console.log(this.visibleDate);
         });
-        this.navRight.addEventListener("click", () => {
+
+        next.addEventListener("click", () => {
             this.visibleDate.setMonth(this.visibleDate.getMonth() + 1);
-            this.visibleDateNext.setMonth(this.visibleDateNext.getMonth() + 1);
             this.render();
-            this.registerCellEvents();
+            console.log(this.visibleDate);
         });
     };
 
     registerCellEvents = () => {
         const cellNodes = document.querySelectorAll(".dario-cell:not(.dario-cell--disable)");
-        console.log(cellNodes);
+
         cellNodes.forEach((cell) => {
             cell.addEventListener("click", (e) => {
-                // console.log(typeof cell.dataset.date);
                 let { date } = cell.dataset;
                 let { time } = getParsedDate(new Date(date));
                 removeCellSelected(cellNodes);
-                console.log(time);
                 cell.classList.add("dario-cell--selected");
+                this.$target.value = date;
+                this.hide();
+                console.log(this.visibleDate);
             });
         });
-        // for (let i = 0; i < cellNodes.length; i++) {
-        //     if (this.isSelectable(cellNodes[i])) {
-        //         cellNodes[i].addEventListener("click", (event) => {
-        //             const checkDate = new Date(parseInt(event.target.getAttribute("data-day")));
-        //             if (this.startDate == 0) {
-        //                 this.startDate = checkDate.getTime();
-        //             } else if (this.endDate == 0) {
-        //                 if (checkDate.getTime() <= this.startDate) {
-        //                     this.startDate = checkDate.getTime();
-        //                 } else {
-        //                     this.endDate = checkDate.getTime();
-        //                 }
-        //             } else {
-        //                 this.startDate = checkDate.getTime();
-        //                 this.endDate = 0;
-        //             }
-        //             this.render();
-        //             this.registerCellEvents();
-        //         });
-        //         cellNodes[i].addEventListener("mouseover", (event) => {
-        //             const currentTime = parseInt(event.target.getAttribute("data-day"));
-        //             for (var inner = 0; inner < cellNodes.length; inner++) {
-        //                 const innerNode = cellNodes[inner];
-        //                 innerNode.classList.remove("selected-innerh");
-        //                 if (
-        //                     currentTime > this.startDate &&
-        //                     this.isSelectable(innerNode) &&
-        //                     this.startDate > 0 &&
-        //                     this.endDate == 0
-        //                 ) {
-        //                     const innerTime = parseInt(innerNode.getAttribute("data-day"));
-        //                     if (innerTime > this.startDate && innerTime <= currentTime) {
-        //                         innerNode.classList.add("selected-innerh");
-        //                     }
-        //                 }
-        //             }
-        //         });
-        //     }
-        // }
     };
 
     renderCore = () => {
@@ -235,7 +200,7 @@ class Dario {
         this.renderNavRight();
         this.renderNavCenter();
         this.renderHeader();
-        // this.renderContent();
+        this.renderContent();
     };
 
     render = () => {
@@ -245,16 +210,16 @@ class Dario {
     };
 
     renderNavLeft = () => {
-        let visible = this.visibleDate.getMonth() > this.minDate.getMonth();
-        this.navLeft = getEl(".dario-nav-arrow--prev");
+        let visible = this.visibleDate.getTime() > this.minDate.getTime();
+        let prev = getEl(".dario-nav-arrow--prev");
 
-        this.navLeft.style.cssText = `visibility: ${visible ? "visible" : "hidden"}`;
-        this.navLeft.innerHTML = '<svg><path d="M 17,12 l -5,5 l 5,5"></path></svg>';
+        prev.style.cssText = `visibility: ${visible ? "visible" : "hidden"}`;
+        prev.innerHTML = '<svg><path d="M 17,12 l -5,5 l 5,5"></path></svg>';
     };
 
     renderNavRight = () => {
-        this.navRight = getEl(".dario-nav-arrow--next");
-        this.navRight.innerHTML = '<svg><path d="M 14,12 l 5,5 l -5,5"></path></svg>';
+        let next = getEl(".dario-nav-arrow--next");
+        next.innerHTML = '<svg><path d="M 14,12 l 5,5 l -5,5"></path></svg>';
     };
 
     renderNavCenter = () => {
@@ -273,19 +238,14 @@ class Dario {
         let header = getEl(".dario-inner--current .dario-header-week");
         header.innerHTML = "";
 
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < this.days.length; i++) {
             header.innerHTML += `<div>${this.days[i].substring(0, 2)}</div>`;
         }
     };
 
     renderContent = () => {
-        this.contentCurrent = getEl(".dario-content--current");
-        this.contentNext = getEl(".dario-content--next");
-        this.contentCurrent.innerHTML = this.renderCell(this.visibleDate);
-
-        if (this.range) {
-            this.contentNext.innerHTML = this.renderCell(this.visibleDateNext);
-        }
+        let content = getEl(".dario-inner--current .dario-content-days");
+        content.innerHTML = this.renderCell(this.visibleDate);
     };
 
     renderCell = (date) => {
@@ -305,7 +265,7 @@ class Dario {
                 let selected = today == current && !this.range ? " dario-cell--selected" : "";
                 let disable = current < today ? " dario-cell--disable" : "";
 
-                cell += `<div class="dario-cell${selected}${disable}" data-date="${yy}-${mm}-${dd}">${d}</div>`;
+                cell += `<div class="dario-cell${selected}${disable}" data-date="${dd}-${mm}-${yy}">${d}</div>`;
             } else {
                 cell += '<div class="dario-cell dario-cell--disable"></div>';
             }
@@ -357,27 +317,3 @@ function removeCellSelected(elements) {
         el.classList.remove("dario-cell--selected");
     });
 }
-
-// let darioInstance = null;
-// const initDario = (inlineElement = null) => {
-//     if (inlineElement === null) {
-//         document.getElementById("dario").addEventListener("click", (event) => {
-//             if (darioInstance == null) {
-//                 darioInstance = new Dario({
-//                     target: event.target,
-//                     cbEnd: dateSelected,
-//                 });
-//                 darioInstance.show();
-//             } else {
-//                 darioInstance.show();
-//             }
-//             // console.log(darioInstance);
-//         });
-//     } else {
-//         darioInstance = new Dario({
-//             inline: true,
-//             target: inlineElement,
-//             cbEnd: dateSelected,
-//         });
-//     }
-// };

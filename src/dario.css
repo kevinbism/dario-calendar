@@ -75,14 +75,15 @@
     display: flex;
 }
 
-.dario-content > div {
-    width: 50%;
-    padding: 10px;
+.dario-content-days {
     display: grid;
-    column-gap: 5px;
-    row-gap: 5px;
+    gap: 5px;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
+}
+
+.dario-content-days div {
+    padding: 10px;
 }
 
 .dario-cell {
@@ -93,14 +94,8 @@
     transition: background-color 0.5s ease;
 }
 
-.dario-cell:hover {
+.dario-cell:not(.dario-cell--selected):hover {
     background-color: var(--color-bg-selectable);
-}
-
-.dario-content .selected-inner,
-.dario-content .selected-innerh {
-    background-color: var(--color-bg-selected-inner);
-    color: var(--color-text-selected-inner);
 }
 
 .dario-cell--selected {
