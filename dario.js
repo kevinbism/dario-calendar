@@ -25,9 +25,7 @@ class Dario {
             this[prop] = opts[prop];
         }
 
-        if (!this.minDate) {
-            this.minDate = new Date();
-        }
+        this.minDate = this.setMinDate();
 
         this.$target = this.$el;
         this.$dario = createElement({ className: "dario" });
@@ -112,6 +110,19 @@ class Dario {
         var xPos = window.innerWidth - pos.right < pos.left ? `right: ${window.innerWidth - pos.right}px;` : `left: ${pos.left}px;`;
         var yPos = window.innerHeight - pos.bottom < pos.top ? `bottom: ${(window.innerHeight - pos.top) - window.scrollY}px;` : `top: ${pos.top + (pos.bottom - pos.top) + window.scrollY}px;`;
         this.$dario.style.cssText = `display: block; ${xPos} ${yPos}`;
+    };
+
+    setMinDate = () => {
+        if (this.$target.dataset.mindate != undefined) {
+            this.minDate = new Date(this.$target.dataset.mindate);
+            return (this.minDate = !isNaN(this.minDate) ? this.minDate : new Date());
+        }
+
+        if (this.minDate) {
+            return this.minDate;
+        }
+
+        return (this.minDate = new Date());
     };
 
     _buildNav = () => {
