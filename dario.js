@@ -1,7 +1,7 @@
 let defaults = {
     inline: false,
     classes: "",
-    lang: "ita",
+    lang: "eng",
     container: "",
     minDate: "",
     range: false,
@@ -24,6 +24,8 @@ class Dario {
         for (const prop in opts) {
             this[prop] = opts[prop];
         }
+        
+        this.lang = Object.keys(this.months).includes(this.lang) ? this.lang : 'eng';
 
         this.minDate = this.setMinDate();
 
