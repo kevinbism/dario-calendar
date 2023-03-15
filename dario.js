@@ -7,11 +7,13 @@ let defaults = {
     range: false,
     months: { 
         ita: [ "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" ],
-        eng: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+        eng: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
+        deu: [ "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember" ],
     },
     days:{
         ita: ["Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica"],
-        eng: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        eng: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        deu: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
     }
 };
 
