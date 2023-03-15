@@ -28,10 +28,10 @@ class Dario {
         }
         
         this.lang = Object.keys(this.months).includes(this.lang) ? this.lang : 'eng';
+        this.$target = this.$el;
 
         this.minDate = this.setMinDate();
 
-        this.$target = this.$el;
         this.$dario = createElement({ className: "dario" });
         this.class = "dario";
         this.startDate = 0;
