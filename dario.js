@@ -395,6 +395,7 @@ function createElement({ tagName = 'div', className = '', id = '' } = {}) {
 function getParsedDate(date) {
   return {
     year: date.getFullYear(),
+    yearShort: date.getFullYear().toString().substr(-2),
     month: date.getMonth(),
     fullMonth: date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1,
     date: date.getDate(),
