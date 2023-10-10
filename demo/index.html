@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DARIO... chi è dario?</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="../src/dario.css">
-    <script type="text/javascript" src="../src/dario.js"></script>
+    <link rel="stylesheet" href="../dario.css">
+    <script type="text/javascript" src="../dario.js"></script>
 </head>
 <body>
     <input id="in" type="text" value="">
@@ -17,7 +17,8 @@
     const dario = new Dario('#in', {
         classes: 'dario--mod',
         inline: true,
-        range: true,
+        range: false,
+        showSelected: true
     });
     console.log(dario);
 </script>
