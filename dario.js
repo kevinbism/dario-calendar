@@ -8,6 +8,7 @@ const days = {
   rus: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
 };
 
+// prettier-ignore
 const months = {
   ita: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
   eng: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -49,9 +50,17 @@ class Dario {
     this.endDate = 0;
     this.visible = false;
     this.navInit = false;
-    this.visibleDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth(), this.minDate.getDate());
+    this.visibleDate = new Date(
+      this.minDate.getFullYear(),
+      this.minDate.getMonth(),
+      this.minDate.getDate()
+    );
     this.visibleDate.setDate(1);
-    this.visibleDateNext = new Date(this.visibleDate.getFullYear(), this.visibleDate.getMonth() + 1, 1);
+    this.visibleDateNext = new Date(
+      this.visibleDate.getFullYear(),
+      this.visibleDate.getMonth() + 1,
+      1
+    );
 
     this.init();
   }
@@ -116,7 +125,10 @@ class Dario {
   setPosition = () => {
     let { $target } = this;
     let pos = $target.getBoundingClientRect();
-    let xPos = window.innerWidth - pos.right < pos.left ? `right: ${window.innerWidth - pos.right}px;` : `left: ${pos.left}px;`;
+    let xPos =
+      window.innerWidth - pos.right < pos.left
+        ? `right: ${window.innerWidth - pos.right}px;`
+        : `left: ${pos.left}px;`;
     let yPos =
       window.innerHeight - pos.bottom < pos.top
         ? `bottom: ${window.innerHeight - pos.top - window.scrollY}px;`
@@ -187,7 +199,10 @@ class Dario {
 
   registerVisibilityEvents = () => {
     document.addEventListener('click', event => {
-      if (event.target.closest('.dario') === null && event.target.closest('#' + this.$target.id) === null) {
+      if (
+        event.target.closest('.dario') === null &&
+        event.target.closest('#' + this.$target.id) === null
+      ) {
         this.hide();
       }
     });
@@ -252,7 +267,12 @@ class Dario {
           for (let inner = 0; inner < cellNodes.length; inner++) {
             const innerNode = cellNodes[inner];
             innerNode.classList.remove('dario-cell--hover');
-            if (currentTime > this.startDate && this.isSelectable(innerNode) && this.startDate > 0 && this.endDate == 0) {
+            if (
+              currentTime > this.startDate &&
+              this.isSelectable(innerNode) &&
+              this.startDate > 0 &&
+              this.endDate == 0
+            ) {
               const innerTime = parseInt(innerNode.dataset.time);
               if (innerTime > this.startDate && innerTime <= currentTime) {
                 innerNode.classList.add('dario-cell--hover');
@@ -325,7 +345,9 @@ class Dario {
 
   renderNavCenter = () => {
     this.navCenter = getEl('.dario-nav-center');
-    this.navCenter.innerHTML = `${this.months[this.lang][this.visibleDate.getMonth()]} ${this.visibleDate.getFullYear()}`;
+    this.navCenter.innerHTML = `${
+      this.months[this.lang][this.visibleDate.getMonth()]
+    } ${this.visibleDate.getFullYear()}`;
     if (this.range) {
       this.navCenter.innerHTML += `<span class="dario-nav-center--next"> - ${
         this.months[this.lang][this.visibleDateNext.getMonth()]
@@ -344,7 +366,8 @@ class Dario {
 
     for (let i = 0; i < this.days[this.lang].length; i++) {
       header.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
-      if (this.range) headerNext.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
+      if (this.range)
+        headerNext.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
     }
   };
 
@@ -365,10 +388,28 @@ class Dario {
 
     for (let i = 1 - dow; i <= 42 - dow; i++) {
       if (i >= 1 && i <= lastDayOfMonth(date)) {
-        let { date: d, fullDate: dd, fullMonth: mm, year: yy, time: current } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
-        let selected = current == this.startDate || current == this.endDate ? ' dario-cell--selected' : '';
-        let selectedStart = (current == today || current == tomorrow) && this.showSelected && this.startDate == 0 ? ' dario-cell--selected' : '';
-        let selectedInner = this.startDate > 0 && this.endDate > 0 && current > this.startDate && current < this.endDate ? ' dario-cell--inner' : '';
+        let {
+          date: d,
+          fullDate: dd,
+          fullMonth: mm,
+          year: yy,
+          time: current,
+        } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
+        let selected =
+          current == this.startDate || current == this.endDate ? ' dario-cell--selected' : '';
+        let selectedStart =
+          (current == today || (current == tomorrow && this.range)) &&
+          this.showSelected &&
+          this.startDate == 0
+            ? ' dario-cell--selected'
+            : '';
+        let selectedInner =
+          this.startDate > 0 &&
+          this.endDate > 0 &&
+          current > this.startDate &&
+          current < this.endDate
+            ? ' dario-cell--inner'
+            : '';
         let disable = current < today ? ' dario-cell--disable' : '';
 
         cell += `<div class="dario-cell${selected}${selectedStart}${disable}${selectedInner}" data-time="${current}" data-date="${dd}-${mm}-${yy}">${d}</div>`;
@@ -420,5 +461,10 @@ function dayOfWeek(date) {
 }
 
 function nights(checkin, checkout) {
-  return (checkout - checkout.getTimezoneOffset() * 60000 - (checkin - checkin.getTimezoneOffset() * 60000)) / 86400000;
+  return (
+    (checkout -
+      checkout.getTimezoneOffset() * 60000 -
+      (checkin - checkin.getTimezoneOffset() * 60000)) /
+    86400000
+  );
 }
