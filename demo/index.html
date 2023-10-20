@@ -17,8 +17,11 @@
     const dario = new Dario('#in', {
         classes: 'dario--mod',
         inline: false,
-        range: false,
-        showSelected: true
+        range: true,
+        showSelected: true,
+        onSelect(dario) {
+            console.log(dario);
+        }
     });
     console.log(dario);
 </script>

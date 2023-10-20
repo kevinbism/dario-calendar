@@ -290,9 +290,10 @@ class Dario {
 
   returnCallBack = () => {
     if (this.onSelect !== undefined) {
+      let startDate = this.startDate > 0 ? new Date(this.startDate) : new Date(this.minDate);
+      let endDate = new Date(startDate);
+
       if (this.range) {
-        let startDate = this.startDate > 0 ? new Date(this.startDate) : new Date();
-        let endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + 1);
         if (this.endDate > 0) endDate = new Date(this.endDate);
 
@@ -306,7 +307,6 @@ class Dario {
           nights: nights(startDate, endDate),
         });
       } else {
-        let startDate = this.startDate > 0 ? new Date(this.startDate) : new Date();
         this.onSelect({
           startDate: getParsedDate(startDate),
           startMonth: this.months[this.lang][startDate.getMonth()],
