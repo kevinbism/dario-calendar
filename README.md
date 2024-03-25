@@ -13,11 +13,9 @@ Includi il file .css nel tuo progetto
 />
 ```
 
-Importa e crea l'istanza di Dario:
+Esempio implementazione di Dario:
 
 ```js
-import Dario from 'dario.js';
-
 new Dario('#in');
 ```
 
@@ -32,6 +30,19 @@ new Dario('#in');
 | minDate      | `string`  | `"new Date('2023-08-30')"` | Data minima selezionabile nel formato "yyyy-mm-dd".                                                                                                                |
 | range        | `boolean` | `false`                    | Indica se abilitare la selezione di un intervallo di date anziché una singola data. Come alternativa è possibile impostare la data come attributo del tag `input`. |
 | showSelected | `boolean` | `false`                    | Indica se visualizzare la data selezionata dei giorni correnti.                                                                                                    |
+
+## Eventi
+
+Con Dario è possibile gestire gli eventi al click del calendario usando il metodo `onSelect()`:
+
+```js
+onSelect(dario) {
+  document.querySelector('#gg').value = dario.startDate.fullDate;
+  document.querySelector('#mm').value = dario.startDate.fullMonth;
+  document.querySelector('#aa').value = dario.startDate.year;
+  document.querySelector('#notti_1').value = dario.nights;
+},
+```
 
 ## Per dare il tuo contributo
 
