@@ -6,9 +6,11 @@
         <script type="text/javascript" src="dario.js"></script>
     </head>
     <body>
-        <input id="dario" type="text" value="">
+        <input id="dario" type="text" value="" data-mindate="2024-03-26">
     </body>
     <script type="text/javascript">
-        initDario();
+        new Dario('#dario', {
+            showSelected: true
+        });
     </script>
 </html>

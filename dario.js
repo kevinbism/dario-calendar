@@ -139,7 +139,8 @@ class Dario {
   setMinDate = () => {
     if (this.$target.dataset.mindate != undefined) {
       this.minDate = new Date(this.$target.dataset.mindate);
-      return (this.minDate = !isNaN(this.minDate) ? this.minDate : new Date());
+      return (this.minDate =
+        !isNaN(this.minDate) && this.minDate.getTime() >= Date.now() ? this.minDate : new Date());
     }
 
     if (this.minDate) {
