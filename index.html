@@ -7,10 +7,19 @@
     </head>
     <body>
         <input id="dario" type="text" value="" data-mindate="2024-03-26">
+        <div class="d"></div>
+        <div class="m"></div>
+        <div class="y"></div>
     </body>
     <script type="text/javascript">
         new Dario('#dario', {
-            showSelected: true
+            showSelected: true,
+            onSelect(dario) {
+                document.querySelector('.d').textContent = dario.startDate.fullDate;
+                document.querySelector('.m').textContent = dario.startMonthShort;
+                document.querySelector('.y').textContent = dario.startDate.year;
+                console.log(dario.startDate);
+            },
         });
     </script>
 </html>
