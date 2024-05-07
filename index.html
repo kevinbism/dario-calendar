@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>DARIO... chi è dario?</title>
+        <title>Dario Calendar</title>
         <link rel="stylesheet" href="dario.css" />
         <script type="text/javascript" src="dario.js"></script>
     </head>
@@ -12,8 +12,9 @@
         <div class="y"></div>
     </body>
     <script type="text/javascript">
-        new Dario('#dario', {
+        const dario = new Dario('#dario', {
             showSelected: true,
+            range: true,
             onSelect(dario) {
                 document.querySelector('.d').textContent = dario.startDate.fullDate;
                 document.querySelector('.m').textContent = dario.startMonthShort;
@@ -21,5 +22,6 @@
                 console.log(dario.startDate);
             },
         });
+        console.log(dario);
     </script>
 </html>
