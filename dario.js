@@ -86,7 +86,7 @@ class Dario {
     }
   }
 
-  show = () => {
+  show() {
     if (!this.#visible) {
       this.createDOM();
     }
@@ -100,16 +100,16 @@ class Dario {
 
     this.renderCore();
     this.registerEvents();
-  };
+  }
 
-  hide = () => {
+  hide() {
     if (!this.inline) {
       this.$dario.style.cssText = 'display: none';
       this.$dario.classList.remove('dario--visible');
     }
-  };
+  }
 
-  createDOM = () => {
+  createDOM() {
     let { $dario, classes, range } = this;
 
     if (classes) {
@@ -128,9 +128,9 @@ class Dario {
     }
 
     document.body.appendChild($dario);
-  };
+  }
 
-  setPosition = () => {
+  setPosition() {
     let { $target } = this;
     let pos = $target.getBoundingClientRect();
     let xPos =
@@ -142,9 +142,9 @@ class Dario {
         ? `bottom: ${window.innerHeight - pos.top - window.scrollY}px;`
         : `top: ${pos.top + (pos.bottom - pos.top) + window.scrollY}px;`;
     this.$dario.style.cssText = `display: block; ${xPos} ${yPos}`;
-  };
+  }
 
-  setMinDate = () => {
+  setMinDate() {
     if (this.$target.dataset.mindate != undefined) {
       this.minDate = new Date(this.$target.dataset.mindate);
       return (this.minDate =
@@ -156,9 +156,9 @@ class Dario {
     }
 
     return (this.minDate = new Date());
-  };
+  }
 
-  _buildNav = () => {
+  _buildNav() {
     let template = `<div class="dario-nav">
             <div class="dario-nav-arrow dario-nav-arrow--prev"></div>
             <div class="dario-nav-center"></div>
@@ -166,47 +166,47 @@ class Dario {
         </div>`;
 
     this.$dario.innerHTML += template;
-  };
+  }
 
-  _buildContainer = () => {
+  _buildContainer() {
     let container = createElement({ className: 'dario-container' });
     if (this.range) container.classList.add('dario-container--multi');
     this.$dario.appendChild(container);
-  };
+  }
 
-  _buildInner = className => {
+  _buildInner(className) {
     let inner = createElement({ className: `dario-inner ${className}` });
     this.$dario.querySelector('.dario-container').appendChild(inner);
     this._buildHeader(inner);
     this._buildContent(inner);
-  };
+  }
 
-  _buildHeader = el => {
+  _buildHeader(el) {
     let template = `<div class="dario-header">
             <div class="dario-header-week"></div>
         </div>`;
 
     el.innerHTML += template;
-  };
+  }
 
-  _buildContent = el => {
+  _buildContent(el) {
     let template = `<div class="dario-content">
             <div class="dario-content-days"></div>
         </div>`;
 
     el.innerHTML += template;
-  };
+  }
 
-  registerEvents = () => {
+  registerEvents() {
     if (!this.#navInit) {
       this.registerNavEvents();
       this.registerVisibilityEvents();
       this.#navInit = true;
     }
     this.registerCellEvents();
-  };
+  }
 
-  registerVisibilityEvents = () => {
+  registerVisibilityEvents() {
     document.addEventListener('click', event => {
       if (
         event.target.closest('.dario') === null &&
@@ -215,9 +215,9 @@ class Dario {
         this.hide();
       }
     });
-  };
+  }
 
-  registerNavEvents = () => {
+  registerNavEvents() {
     let prev = getEl('.dario-nav-arrow--prev');
     let next = getEl('.dario-nav-arrow--next');
 
@@ -236,9 +236,9 @@ class Dario {
       this.render();
       this.registerCellEvents();
     });
-  };
+  }
 
-  registerCellEvents = () => {
+  registerCellEvents() {
     const cellNodes = document.querySelectorAll('.dario-cell:not(.dario-cell--disable)');
 
     cellNodes.forEach(cell => {
@@ -291,13 +291,13 @@ class Dario {
         });
       }
     });
-  };
+  }
 
-  isSelectable = element => {
+  isSelectable(element) {
     return !element.classList.contains('dario-cell--disable');
-  };
+  }
 
-  returnCallBack = () => {
+  returnCallBack() {
     if (this.onSelect !== undefined) {
       let startDate = this.#startDate > 0 ? new Date(this.#startDate) : new Date(this.minDate);
       let endDate = new Date(startDate);
@@ -323,36 +323,36 @@ class Dario {
         });
       }
     }
-  };
+  }
 
-  renderCore = () => {
+  renderCore() {
     this.renderNavLeft();
     this.renderNavRight();
     this.renderNavCenter();
     this.renderHeader();
     this.renderContent();
-  };
+  }
 
-  render = () => {
+  render() {
     this.renderNavLeft();
     this.renderNavCenter();
     this.renderContent();
-  };
+  }
 
-  renderNavLeft = () => {
+  renderNavLeft() {
     let visible = this.#visibleDate.getTime() > this.minDate.getTime();
     let prev = getEl('.dario-nav-arrow--prev');
 
     prev.style.cssText = `visibility: ${visible ? 'visible' : 'hidden'}`;
     prev.innerHTML = '<svg><path d="M 17,12 l -5,5 l 5,5"></path></svg>';
-  };
+  }
 
-  renderNavRight = () => {
+  renderNavRight() {
     let next = getEl('.dario-nav-arrow--next');
     next.innerHTML = '<svg><path d="M 14,12 l 5,5 l -5,5"></path></svg>';
-  };
+  }
 
-  renderNavCenter = () => {
+  renderNavCenter() {
     this.navCenter = getEl('.dario-nav-center');
     this.navCenter.innerHTML = `${
       this.months[this.lang][this.#visibleDate.getMonth()]
@@ -362,9 +362,9 @@ class Dario {
         this.months[this.lang][this.#visibleDateNext.getMonth()]
       } ${this.#visibleDateNext.getFullYear()}</span>`;
     }
-  };
+  }
 
-  renderHeader = () => {
+  renderHeader() {
     let header = getEl('.dario-inner--current .dario-header-week');
     let headerNext = getEl('.dario-inner--next .dario-header-week');
     header.innerHTML = '';
@@ -378,16 +378,16 @@ class Dario {
       if (this.range)
         headerNext.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
     }
-  };
+  }
 
-  renderContent = () => {
+  renderContent() {
     let content = getEl('.dario-inner--current .dario-content-days');
     let contentNext = getEl('.dario-inner--next .dario-content-days');
     content.innerHTML = this.renderCell(this.#visibleDate);
     if (this.range) contentNext.innerHTML = this.renderCell(this.#visibleDateNext);
-  };
+  }
 
-  renderCell = date => {
+  renderCell(date) {
     let dow = dayOfWeek(date);
     let cell = '';
     let { time: today } = getParsedDate(resetTime(this.minDate));
@@ -427,7 +427,7 @@ class Dario {
       }
     }
     return cell;
-  };
+  }
 }
 
 function getEl(el, context = document) {
