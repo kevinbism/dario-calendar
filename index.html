@@ -4,11 +4,11 @@
     <title>Dario Calendar</title>
     <link
       rel="stylesheet"
-      href="dario.css"
+      href="src/dario.css"
     />
     <script
       type="text/javascript"
-      src="dario.js"
+      src="dist/dario.js"
     ></script>
   </head>
   <body>
@@ -25,7 +25,7 @@
     const dario = new Dario('#dario', {
       showSelected: true,
       range: true,
-      minStay: 3,
+      minStay: 1,
       onSelect(dario) {
         document.querySelector('.d').textContent = dario.startDate.fullDate;
         document.querySelector('.m').textContent = dario.startMonthShort;
