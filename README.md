@@ -30,7 +30,7 @@ new Dario('#in');
 | minDate      | `string`  | `"new Date('2023-08-30')"` | Data minima selezionabile nel formato "yyyy-mm-dd".                                                                                                                |
 | range        | `boolean` | `false`                    | Indica se abilitare la selezione di un intervallo di date anziché una singola data. Come alternativa è possibile impostare la data come attributo del tag `input`. |
 | showSelected | `boolean` | `false`                    | Indica se visualizzare la data selezionata dei giorni correnti.                                                                                                    |
-| minStay      |           | `number`                   | Indica il minimo numero di giorni da tenere selezionato.                                                                                                           |
+| minStay      | `number`  | 1                          | Indica il minimo numero di giorni da tenere selezionato.                                                                                                           |
 
 ## Eventi
 
