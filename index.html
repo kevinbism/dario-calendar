@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dario Calendar</title>
+    <link
+      rel="stylesheet"
+      href="src/dario.css"
+    />
+    <script
+      type="text/javascript"
+      src="dist/dario.js"
+    ></script>
+  </head>
+  <body>
+    <input
+      id="dario"
+      type="text"
+      value=""
+    />
+    <div class="d"></div>
+    <div class="m"></div>
+    <div class="y"></div>
+  </body>
+  <script type="text/javascript">
+    const dario = new Dario('#dario', {
+      showSelected: true,
+      range: true,
+      minStay: 1,
+      onSelect(dario) {
+        document.querySelector('.d').textContent = dario.startDate.fullDate;
+        document.querySelector('.m').textContent = dario.startMonthShort;
+        document.querySelector('.y').textContent = dario.startDate.year;
+      },
+    });
+  </script>
+</html>
