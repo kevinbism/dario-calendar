@@ -31,6 +31,7 @@ let defaults = {
   months: months,
   days: days,
   showSelected: false,
+  minStay: 1,
 };
 
 class Dario {
@@ -60,6 +61,7 @@ class Dario {
     this.#endDate = 0;
     this.#visible = false;
     this.#navInit = false;
+    this.minStay = this.minStay < 1 ? 1 : this.minStay;
     this.#visibleDate = new Date(
       this.minDate.getFullYear(),
       this.minDate.getMonth(),
@@ -248,12 +250,15 @@ class Dario {
         e.stopPropagation();
         if (this.range) {
           let checkDate = parseInt(cell.dataset.time);
+          let currentMinStay = this.#startDate + this.minStay * 86400000;
 
           if (this.#startDate == 0) {
             this.#startDate = checkDate;
           } else if (this.#endDate == 0) {
             if (checkDate <= this.#startDate) {
               this.#startDate = checkDate;
+            } else if (checkDate < currentMinStay) {
+              return;
             } else {
               this.#endDate = checkDate;
               this.returnCallBack();
@@ -285,8 +290,15 @@ class Dario {
               this.#endDate == 0
             ) {
               const innerTime = parseInt(innerNode.dataset.time);
-              if (innerTime > this.#startDate && innerTime <= currentTime) {
+              const currentMinStay = this.#startDate + this.minStay * 86400000;
+              if (
+                innerTime > this.#startDate &&
+                innerTime <= (currentTime > currentMinStay ? currentTime : currentMinStay)
+              ) {
                 innerNode.classList.add('dario-cell--hover');
+                if (innerTime < currentMinStay) {
+                  innerNode.style.cssText = `cursor: not-allowed`;
+                }
               }
             }
           }
@@ -305,7 +317,7 @@ class Dario {
       let endDate = new Date(startDate);
 
       if (this.range) {
-        endDate.setDate(endDate.getDate() + 1);
+        endDate.setDate(endDate.getDate() + this.minStay);
         if (this.#endDate > 0) endDate = new Date(this.#endDate);
 
         this.onSelect({
@@ -394,7 +406,7 @@ class Dario {
     let cell = '';
     let { time: today } = getParsedDate(resetTime(this.minDate));
     let endDate = new Date(today);
-    endDate.setDate(endDate.getDate() + 1);
+    endDate.setDate(endDate.getDate() + this.minStay);
     let { time: tomorrow } = getParsedDate(endDate);
 
     for (let i = 1 - dow; i <= 42 - dow; i++) {
@@ -414,11 +426,18 @@ class Dario {
           this.#startDate == 0
             ? ' dario-cell--selected'
             : '';
+        let startInnerCheck = this.#startDate || today;
+        let endInnerCheck =
+          this.#startDate > 0 && this.#endDate > 0
+            ? this.#endDate
+            : this.#startDate > 0
+            ? today
+            : tomorrow;
         let selectedInner =
-          this.#startDate > 0 &&
-          this.#endDate > 0 &&
-          current > this.#startDate &&
-          current < this.#endDate
+          startInnerCheck > 0 &&
+          endInnerCheck > 0 &&
+          current > startInnerCheck &&
+          current < endInnerCheck
             ? ' dario-cell--inner'
             : '';
         let disable = current < today ? ' dario-cell--disable' : '';

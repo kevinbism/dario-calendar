@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Dario Calendar</title>
-        <link rel="stylesheet" href="dario.css" />
-        <script type="text/javascript" src="dario.js"></script>
-    </head>
-    <body>
-        <input id="dario" type="text" value="" data-mindate="2024-03-26">
-        <div class="d"></div>
-        <div class="m"></div>
-        <div class="y"></div>
-    </body>
-    <script type="text/javascript">
-        const dario = new Dario('#dario', {
-            showSelected: true,
-            range: true,
-            onSelect(dario) {
-                document.querySelector('.d').textContent = dario.startDate.fullDate;
-                document.querySelector('.m').textContent = dario.startMonthShort;
-                document.querySelector('.y').textContent = dario.startDate.year;
-                console.log(dario.startDate);
-            },
-        });
-        console.log(dario);
-    </script>
+  <head>
+    <title>Dario Calendar</title>
+    <link
+      rel="stylesheet"
+      href="dario.css"
+    />
+    <script
+      type="text/javascript"
+      src="dario.js"
+    ></script>
+  </head>
+  <body>
+    <input
+      id="dario"
+      type="text"
+      value=""
+    />
+    <div class="d"></div>
+    <div class="m"></div>
+    <div class="y"></div>
+  </body>
+  <script type="text/javascript">
+    const dario = new Dario('#dario', {
+      showSelected: true,
+      range: true,
+      minStay: 3,
+      onSelect(dario) {
+        document.querySelector('.d').textContent = dario.startDate.fullDate;
+        document.querySelector('.m').textContent = dario.startMonthShort;
+        document.querySelector('.y').textContent = dario.startDate.year;
+      },
+    });
+  </script>
 </html>
