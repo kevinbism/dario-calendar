@@ -4,13 +4,18 @@ Benvenuti a bordo del viaggio di Dario, il calendario che trasforma la pianifica
 
 ## Come implementare Dario
 
-Includi il file .css nel tuo progetto
+Includi il file CSS e JavaScript nel tuo progetto:
 
 ```html
 <link
   rel="stylesheet"
   href="dario.css"
 />
+
+<script
+  type="text/javascript"
+  src="dario.js"
+></script>
 ```
 
 Esempio implementazione di Dario:
@@ -30,19 +35,40 @@ new Dario('#in');
 | minDate      | `string`  | `"new Date('2023-08-30')"` | Data minima selezionabile nel formato "yyyy-mm-dd".                                                                                                                |
 | range        | `boolean` | `false`                    | Indica se abilitare la selezione di un intervallo di date anziché una singola data. Come alternativa è possibile impostare la data come attributo del tag `input`. |
 | showSelected | `boolean` | `false`                    | Indica se visualizzare la data selezionata dei giorni correnti.                                                                                                    |
-| minStay      | `number`  | 1                          | Indica il minimo numero di giorni da tenere selezionato.                                                                                                           |
+| minStay      | `number`  | `1`                        | Indica il minimo numero di giorni da tenere selezionato.                                                                                                           |
 
 ## Eventi
 
-Con Dario è possibile gestire gli eventi al click del calendario usando il metodo `onSelect()`:
+Con Dario è possibile gestire gli eventi al click del calendario usando il metodo `onSelect()`. L'argomento `dario` è un oggetto con le seguenti proprietà:
 
 ```js
-onSelect(dario) {
-  document.querySelector('#gg').value = dario.startDate.fullDate;
-  document.querySelector('#mm').value = dario.startDate.fullMonth;
-  document.querySelector('#aa').value = dario.startDate.year;
-  document.querySelector('#notti_1').value = dario.nights;
-},
+{
+  endDate: {
+    date: 12,
+    day: 3,
+    fullDate: 12,
+    fullMonth: "06",
+    month: 5,
+    time: 1718178303063,
+    year: 2024,
+    yearShort: "24"
+  },
+  endMonth: "June",
+  endMonthShort: "Jun",
+  nights: 1,
+  startDate: {
+    date: 11,
+    day: 2,
+    fullDate: 11,
+    fullMonth: "06",
+    month: 5,
+    time: 1718091903063,
+    year: 2024,
+    yearShort: "24"
+  },
+  startMonth: "June",
+  startMonthShort: "Jun"
+};
 ```
 
 ## Per dare il tuo contributo
@@ -57,6 +83,12 @@ Vai sulla cartella del progetto
 
 ```bash
   cd dario-calendar
+```
+
+E installa le dipendenze
+
+```bash
+  npm install
 ```
 
 Ricordati infine di caricare le tue modifiche sul progetto privato di Github.

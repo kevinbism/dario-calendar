@@ -8,7 +8,7 @@
     />
     <script
       type="text/javascript"
-      src="dist/dario.js"
+      src="dist/dario.min.js"
     ></script>
   </head>
   <body>
@@ -30,6 +30,7 @@
         document.querySelector('.d').textContent = dario.startDate.fullDate;
         document.querySelector('.m').textContent = dario.startMonthShort;
         document.querySelector('.y').textContent = dario.startDate.year;
+        console.log(dario);
       },
     });
   </script>
