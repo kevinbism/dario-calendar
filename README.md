@@ -68,7 +68,7 @@ Con Dario è possibile gestire gli eventi al click del calendario usando il meto
   },
   startMonth: "June",
   startMonthShort: "Jun"
-};
+}
 ```
 
 ## Per dare il tuo contributo
@@ -91,7 +91,13 @@ E installa le dipendenze
   npm install
 ```
 
-Ricordati infine di caricare le tue modifiche sul progetto privato di Github.
+Infine, dopo aver apportato le modifiche compila il progetto con il runtime di Babel
+
+```bash
+  npm run build
+```
+
+Ricordati di caricare le tue modifiche sul progetto privato di Github.
 
 ## Autori
 
