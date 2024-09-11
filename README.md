@@ -6,16 +6,11 @@ Benvenuti a bordo del viaggio di Dario, il calendario che trasforma la pianifica
 
 Includi il file CSS e JavaScript nel tuo progetto:
 
+<!-- prettier-ignore  -->
 ```html
-<link
-  rel="stylesheet"
-  href="dario.css"
-/>
+<link rel="stylesheet" href="dario.css"/>
 
-<script
-  type="text/javascript"
-  src="dario.js"
-></script>
+<script type="text/javascript" src="dario.min.js"></script>
 ```
 
 Esempio implementazione di Dario:
@@ -36,6 +31,8 @@ new Dario('#in');
 | range        | `boolean` | `false`                    | Indica se abilitare la selezione di un intervallo di date anziché una singola data. Come alternativa è possibile impostare la data come attributo del tag `input`. |
 | showSelected | `boolean` | `false`                    | Indica se visualizzare la data selezionata dei giorni correnti.                                                                                                    |
 | minStay      | `number`  | `1`                        | Indica il minimo numero di giorni da tenere selezionato.                                                                                                           |
+| center       | `boolean` | `false`                    | Permette di centrare il canlendario sulla pagina quando viene aperto.                                                                                              |
+| positionType | `string`  | `"absolute"`               | Permette di mettere il calendario in `absolute` oppure `fixed`.                                                                                                    |
 
 ## Eventi
 

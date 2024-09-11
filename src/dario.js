@@ -32,6 +32,8 @@ let defaults = {
   days: days,
   showSelected: false,
   minStay: 1,
+  center: false,
+  positionType: 'absolute',
 };
 
 class Dario {
@@ -74,6 +76,8 @@ class Dario {
       1
     );
 
+    console.log(this.#visibleDateNext);
+
     this.init();
   }
 
@@ -95,15 +99,18 @@ class Dario {
       this.createDOM();
     }
 
-    this.#visible = true;
     this.$dario.classList.add('dario--visible');
 
-    if (!this.inline) {
+    // Quando il calendario è inline aggiunge altrimenti, altrimenti setta la posizione
+    if (this.inline) {
+      this.$dario.classList.add('dario--inline');
+    } else {
       this.setPosition();
     }
 
     this.renderCore();
     this.registerEvents();
+    this.#visible = true;
   }
 
   hide() {
@@ -114,20 +121,30 @@ class Dario {
   }
 
   createDOM() {
-    let { $dario, classes, range } = this;
+    let { $dario, classes, range, inline, container } = this;
 
     if (classes) {
       $dario.classList.add(...classes.split(' '));
     }
 
-    this._buildNav();
-    this._buildContainer();
-    this._buildInner('dario-inner--current');
+    // Se il calendario è inline crea 12 mesi, altrimenti solo 2
+    if (inline) {
+      this._buildNav();
+      this._buildContainer();
 
-    if (range) this._buildInner('dario-inner--next');
+      for (let i = 0; i < 12; i++) {
+        this._buildInner(`dario-inner--${i}`);
+      }
+    } else {
+      this._buildNav();
+      this._buildContainer();
+      this._buildInner('dario-inner--current');
 
-    if (this.container) {
-      getEl(this.container).appendChild($dario);
+      if (range) this._buildInner('dario-inner--next');
+    }
+
+    if (container) {
+      getEl(container).appendChild($dario);
       return;
     }
 
@@ -145,7 +162,14 @@ class Dario {
       window.innerHeight - pos.bottom < pos.top
         ? `bottom: ${window.innerHeight - pos.top - window.scrollY}px;`
         : `top: ${pos.top + (pos.bottom - pos.top) + window.scrollY}px;`;
-    this.$dario.style.cssText = `display: block; ${xPos} ${yPos}`;
+
+    this.$dario.style.cssText = `display: block; position: ${this.positionType};`;
+
+    if (this.center) {
+      this.$dario.style.cssText += 'left: 50%; top: 50%; transform: translate(-50%, -50%);';
+    } else {
+      this.$dario.style.cssText += `${xPos} ${yPos}`;
+    }
   }
 
   setMinDate() {
@@ -174,13 +198,14 @@ class Dario {
 
   _buildContainer() {
     let container = createElement({ className: 'dario-container' });
-    if (this.range) container.classList.add('dario-container--multi');
+    if (this.range && !this.inline) container.classList.add('dario-container--multi');
     this.$dario.appendChild(container);
   }
 
   _buildInner(className) {
     let inner = createElement({ className: `dario-inner ${className}` });
     this.$dario.querySelector('.dario-container').appendChild(inner);
+    if (this.inline) this._buildMonths(inner);
     this._buildHeader(inner);
     this._buildContent(inner);
   }
@@ -189,6 +214,12 @@ class Dario {
     let template = `<div class="dario-header">
             <div class="dario-header-week"></div>
         </div>`;
+
+    el.innerHTML += template;
+  }
+
+  _buildMonths(el) {
+    let template = `<div class="dario-month"></div>`;
 
     el.innerHTML += template;
   }
@@ -344,6 +375,7 @@ class Dario {
     this.renderNavRight();
     this.renderNavCenter();
     this.renderHeader();
+    this.renderMonths();
     this.renderContent();
   }
 
@@ -379,26 +411,45 @@ class Dario {
   }
 
   renderHeader() {
-    let header = getEl('.dario-inner--current .dario-header-week');
-    let headerNext = getEl('.dario-inner--next .dario-header-week');
-    header.innerHTML = '';
+    if (this.#visible) return;
+    const headers = document.querySelectorAll('.dario-inner .dario-header-week');
 
-    if (this.range) {
-      headerNext.innerHTML = '';
-    }
+    headers.forEach(header => {
+      for (let i = 0; i < this.days[this.lang].length; i++) {
+        header.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
+      }
+    });
+  }
 
-    for (let i = 0; i < this.days[this.lang].length; i++) {
-      header.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
-      if (this.range)
-        headerNext.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
-    }
+  renderMonths() {
+    if (this.#visible) return;
+    const months = document.querySelectorAll('.dario-inner .dario-month');
+    let currentVisibleDate = new Date(this.#visibleDate);
+
+    months.forEach((month, index) => {
+      const dateToRender = new Date(currentVisibleDate);
+      dateToRender.setMonth(currentVisibleDate.getMonth() + index);
+
+      month.innerHTML = `${
+        this.months[this.lang][dateToRender.getMonth()]
+      } ${dateToRender.getFullYear()}`;
+    });
   }
 
   renderContent() {
-    let content = getEl('.dario-inner--current .dario-content-days');
-    let contentNext = getEl('.dario-inner--next .dario-content-days');
-    content.innerHTML = this.renderCell(this.#visibleDate);
-    if (this.range) contentNext.innerHTML = this.renderCell(this.#visibleDateNext);
+    const contents = document.querySelectorAll('.dario-inner .dario-content-days');
+
+    // Crea una copia della data iniziale
+    let currentVisibleDate = new Date(this.#visibleDate);
+
+    contents.forEach((content, index) => {
+      // Aggiorna il mese in base all'indice dell'iterazione
+      const dateToRender = new Date(currentVisibleDate);
+      dateToRender.setMonth(currentVisibleDate.getMonth() + index);
+
+      // Passa la data modificata alla funzione renderCell
+      content.innerHTML = this.renderCell(dateToRender);
+    });
   }
 
   renderCell(date) {
