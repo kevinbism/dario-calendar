@@ -10,6 +10,17 @@
       type="text/javascript"
       src="dist/dario.min.js"
     ></script>
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 500px;
+        height: 500px;
+        margin-inline: auto;
+        background-color: aliceblue;
+      }
+    </style>
   </head>
   <body>
     <input
@@ -17,6 +28,7 @@
       type="text"
       value=""
     />
+    <div class="container"></div>
     <div class="d"></div>
     <div class="m"></div>
     <div class="y"></div>
@@ -26,6 +38,8 @@
       showSelected: true,
       range: true,
       minStay: 1,
+      center: false,
+      positionType: 'fixed',
       onSelect(dario) {
         document.querySelector('.d').textContent = dario.startDate.fullDate;
         document.querySelector('.m').textContent = dario.startMonthShort;

@@ -32,6 +32,8 @@ let defaults = {
   days: days,
   showSelected: false,
   minStay: 1,
+  center: false,
+  positionType: 'absolute',
 };
 
 class Dario {
@@ -145,7 +147,14 @@ class Dario {
       window.innerHeight - pos.bottom < pos.top
         ? `bottom: ${window.innerHeight - pos.top - window.scrollY}px;`
         : `top: ${pos.top + (pos.bottom - pos.top) + window.scrollY}px;`;
-    this.$dario.style.cssText = `display: block; ${xPos} ${yPos}`;
+
+    this.$dario.style.cssText = `display: block; position: ${this.positionType};`;
+
+    if (this.center) {
+      this.$dario.style.cssText += 'left: 50%; top: 50%; transform: translate(-50%, -50%);';
+    } else {
+      this.$dario.style.cssText += `${xPos} ${yPos}`;
+    }
   }
 
   setMinDate() {
