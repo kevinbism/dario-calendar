@@ -6,6 +6,12 @@
       rel="stylesheet"
       href="src/dario.css"
     />
+    <!-- Dev -->
+    <!-- <script
+      type="text/javascript"
+      src="src/dario.js"
+    ></script> -->
+    <!-- Prod -->
     <script
       type="text/javascript"
       src="dist/dario.min.js"
@@ -14,9 +20,11 @@
       .container {
         display: flex;
         justify-content: center;
-        align-items: center;
-        width: 500px;
-        height: 500px;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 1200px;
+        height: 700px;
+        overflow-y: auto;
         margin-inline: auto;
         background-color: aliceblue;
       }
@@ -40,6 +48,8 @@
       minStay: 1,
       center: false,
       positionType: 'fixed',
+      inline: true,
+      container: '.container',
       onSelect(dario) {
         document.querySelector('.d').textContent = dario.startDate.fullDate;
         document.querySelector('.m').textContent = dario.startMonthShort;

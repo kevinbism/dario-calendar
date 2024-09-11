@@ -37,6 +37,10 @@
   border-bottom: 1px solid var(--dario-border-color);
 }
 
+.dario--inline .dario-nav {
+  display: none;
+}
+
 .dario-nav-arrow {
   cursor: pointer;
   border-radius: var(--dario-radius-calendar);
@@ -88,9 +92,10 @@
   font-weight: 500;
 }
 
-.dario-container--multi {
+.dario-container {
   display: block;
   padding-inline: 10px;
+  position: relative;
 }
 
 @media screen and (min-width: 1024px) {
@@ -109,6 +114,13 @@
   .dario-inner--next {
     display: block;
   }
+}
+
+.dario-month {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px;
 }
 
 .dario-content {
