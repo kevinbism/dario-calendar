@@ -76,8 +76,6 @@ class Dario {
       1
     );
 
-    console.log(this.#visibleDateNext);
-
     this.init();
   }
 
