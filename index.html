@@ -36,26 +36,38 @@
       type="text"
       value=""
     />
-    <div class="container"></div>
     <div class="d"></div>
     <div class="m"></div>
     <div class="y"></div>
   </body>
   <script type="text/javascript">
-    const dario = new Dario('#dario', {
-      showSelected: true,
-      range: true,
-      minStay: 1,
-      center: false,
-      positionType: 'fixed',
-      inline: true,
-      container: '.container',
-      onSelect(dario) {
-        document.querySelector('.d').textContent = dario.startDate.fullDate;
-        document.querySelector('.m').textContent = dario.startMonthShort;
-        document.querySelector('.y').textContent = dario.startDate.year;
-        console.log(dario);
-      },
+    let dario;
+
+    function initDario() {
+      dario = new Dario('#dario', {
+        showSelected: true,
+        range: true,
+        minStay: 1,
+        center: false,
+        onSelect(dario) {
+          document.querySelector('.d').textContent = dario.startDate.fullDate;
+          document.querySelector('.m').textContent = dario.startMonthShort;
+          document.querySelector('.y').textContent = dario.startDate.year;
+        },
+      });
+    }
+
+    initDario();
+
+    let mobile = window.matchMedia('(max-width: 1024px)');
+    let desktop = !mobile.matches;
+
+    window.addEventListener('resize', () => {
+      if ((desktop && mobile.matches) || (!desktop && !mobile.matches)) {
+        desktop = !mobile.matches;
+        dario.destroy();
+        initDario();
+      }
     });
   </script>
 </html>
