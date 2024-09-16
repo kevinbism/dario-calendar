@@ -33,7 +33,7 @@ let defaults = {
   showSelected: false,
   minStay: 1,
   center: false,
-  positionType: 'absolute',
+  positionType: 'fixed',
 };
 
 class Dario {
@@ -116,6 +116,11 @@ class Dario {
       this.$dario.style.cssText = 'display: none';
       this.$dario.classList.remove('dario--visible');
     }
+  }
+
+  destroy() {
+    this.$target.replaceWith(this.$target.cloneNode(true));
+    this.$dario.remove();
   }
 
   createDOM() {
