@@ -119,8 +119,16 @@ class Dario {
   }
 
   destroy() {
-    this.$target.replaceWith(this.$target.cloneNode(true));
-    this.$dario.remove();
+    // Controlla se esiste this.$target e sostituiscilo con un suo clone
+    if (this.$target) {
+      const clonedTarget = this.$target.cloneNode(true);
+      this.$target.replaceWith(clonedTarget);
+    }
+
+    // Controlla se esiste this.$dario e rimuovilo
+    if (this.$dario) {
+      this.$dario.remove();
+    }
   }
 
   createDOM() {
