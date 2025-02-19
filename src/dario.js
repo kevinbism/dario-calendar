@@ -1,24 +1,72 @@
 const days = {
-  ita: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica'],
-  eng: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-  deu: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
-  esp: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-  fra: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-  jap: ['月', '火', '水', '木', '金', '土', '日'],
-  rus: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-  ara: ['اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت', 'أحد'],
+  ita: {
+    long: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica'],
+    short: ['Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa', 'Do'],
+  },
+  eng: {
+    long: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    short: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+  },
+  deu: {
+    long: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+    short: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+  },
+  esp: {
+    long: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    short: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'],
+  },
+  fra: {
+    long: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+    short: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
+  },
+  jap: {
+    long: ['月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日', '日曜日'],
+    short: ['月', '火', '水', '木', '金', '土', '日'],
+  },
+  rus: {
+    long: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+    short: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+  },
+  ara: {
+    long: ['الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'],
+    short: ['ن', 'ث', 'ر', 'خ', 'ج', 'س', 'ح'],
+  },
 };
 
 // prettier-ignore
 const months = {
-  ita: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-  eng: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  deu: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-  esp: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-  fra: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-  jap: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-  rus: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-  ara: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+  ita: {
+    long: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+    short: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic']
+  },
+  eng: {
+    long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  },
+  deu: {
+    long: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    short: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+  },
+  esp: {
+    long: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    short: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+  },
+  fra: {
+    long: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+    short: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc']
+  },
+  jap: {
+    long: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    short: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+  },
+  rus: {
+    long: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+    short: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+  },
+  ara: {
+    long: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+    short: ['ينا', 'فبر', 'مار', 'أبر', 'ماي', 'يون', 'يول', 'أغس', 'سبت', 'أكت', 'نوف', 'ديس']
+  }
 };
 
 const defaults = {
@@ -369,17 +417,17 @@ class Dario {
         this.onSelect({
           startDate: getParsedDate(startDate),
           endDate: getParsedDate(endDate),
-          startMonth: this.months[this.lang][startDate.getMonth()],
-          startMonthShort: this.months[this.lang][startDate.getMonth()].substring(0, 3),
-          endMonth: this.months[this.lang][endDate.getMonth()],
-          endMonthShort: this.months[this.lang][endDate.getMonth()].substring(0, 3),
+          startMonth: this.months[this.lang].long[startDate.getMonth()],
+          startMonthShort: this.months[this.lang].short[startDate.getMonth()],
+          endMonth: this.months[this.lang].long[endDate.getMonth()],
+          endMonthShort: this.months[this.lang].short[endDate.getMonth()],
           nights: nights(startDate, endDate),
         });
       } else {
         this.onSelect({
           startDate: getParsedDate(startDate),
-          startMonth: this.months[this.lang][startDate.getMonth()],
-          startMonthShort: this.months[this.lang][startDate.getMonth()].substring(0, 3),
+          startMonth: this.months[this.lang].long[startDate.getMonth()],
+          startMonthShort: this.months[this.lang].short[startDate.getMonth()],
         });
       }
     }
@@ -416,11 +464,11 @@ class Dario {
   renderNavCenter() {
     this.navCenter = getEl('.dario-nav-center');
     this.navCenter.innerHTML = `${
-      this.months[this.lang][this.#visibleDate.getMonth()]
+      this.months[this.lang].long[this.#visibleDate.getMonth()]
     } ${this.#visibleDate.getFullYear()}`;
     if (this.range) {
       this.navCenter.innerHTML += `<span class="dario-nav-center--next"> - ${
-        this.months[this.lang][this.#visibleDateNext.getMonth()]
+        this.months[this.lang].long[this.#visibleDateNext.getMonth()]
       } ${this.#visibleDateNext.getFullYear()}</span>`;
     }
   }
@@ -430,8 +478,8 @@ class Dario {
     const headers = document.querySelectorAll('.dario-inner .dario-header-week');
 
     for (const header of headers) {
-      for (let i = 0; i < this.days[this.lang].length; i++) {
-        header.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
+      for (let i = 0; i < 7; i++) {
+        header.innerHTML += `<div>${this.days[this.lang].short[i]}</div>`;
       }
     }
   }
@@ -446,7 +494,7 @@ class Dario {
       dateToRender.setMonth(currentVisibleDate.getMonth() + index);
 
       month.innerHTML = `${
-        this.months[this.lang][dateToRender.getMonth()]
+        this.months[this.lang].long[dateToRender.getMonth()]
       } ${dateToRender.getFullYear()}`;
     });
   }
