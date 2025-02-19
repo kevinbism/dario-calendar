@@ -8,5 +8,6 @@
     "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7"
-  }
+  },
+  "browserslist": "> 0.25%, not dead"
 }
