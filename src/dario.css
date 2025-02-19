@@ -29,6 +29,10 @@
   border: 1px solid var(--dario-border-color);
 }
 
+[lang='ar'] .dario {
+  direction: rtl;
+}
+
 .dario-nav {
   padding: 10px;
   display: flex;
@@ -44,6 +48,11 @@
 .dario-nav-arrow {
   cursor: pointer;
   border-radius: var(--dario-radius-calendar);
+}
+
+[lang='ar'] .dario-nav-arrow--next,
+[lang='ar'] .dario-nav-arrow--prev {
+  transform: rotate(180deg);
 }
 
 .dario-nav-arrow svg {
