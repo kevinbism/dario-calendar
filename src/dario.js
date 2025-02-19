@@ -1,4 +1,4 @@
-const days = {
+const daysDario = {
   ita: {
     long: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica'],
     short: ['Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa', 'Do'],
@@ -34,7 +34,7 @@ const days = {
 };
 
 // prettier-ignore
-const months = {
+const monthsDario = {
   ita: {
     long: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
     short: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic']
@@ -76,8 +76,8 @@ const defaults = {
   container: '',
   minDate: '',
   range: false,
-  months: months,
-  days: days,
+  months: monthsDario,
+  days: daysDario,
   showSelected: false,
   minStay: 1,
   center: false,
