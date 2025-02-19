@@ -81,7 +81,7 @@ const defaults = {
   showSelected: false,
   minStay: 1,
   center: false,
-  positionType: 'fixed',
+  positionType: 'absolute',
 };
 
 class Dario {
