@@ -1,35 +1,83 @@
-const days = {
-  ita: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica'],
-  eng: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-  deu: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
-  esp: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
-  fra: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-  jap: ['月', '火', '水', '木', '金', '土', '日'],
-  rus: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-  ara: ['اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت', 'أحد'],
+const daysDario = {
+  ita: {
+    long: ['Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato', 'Domenica'],
+    short: ['Lu', 'Ma', 'Me', 'Gi', 'Ve', 'Sa', 'Do'],
+  },
+  eng: {
+    long: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    short: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+  },
+  deu: {
+    long: ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+    short: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+  },
+  esp: {
+    long: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    short: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'],
+  },
+  fra: {
+    long: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+    short: ['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'],
+  },
+  jap: {
+    long: ['月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日', '日曜日'],
+    short: ['月', '火', '水', '木', '金', '土', '日'],
+  },
+  rus: {
+    long: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+    short: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+  },
+  ara: {
+    long: ['الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'],
+    short: ['ن', 'ث', 'ر', 'خ', 'ج', 'س', 'ح'],
+  },
 };
 
 // prettier-ignore
-const months = {
-  ita: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-  eng: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  deu: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-  esp: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-  fra: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-  jap: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-  rus: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-  ara: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+const monthsDario = {
+  ita: {
+    long: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+    short: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic']
+  },
+  eng: {
+    long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  },
+  deu: {
+    long: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    short: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+  },
+  esp: {
+    long: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    short: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+  },
+  fra: {
+    long: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+    short: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc']
+  },
+  jap: {
+    long: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    short: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+  },
+  rus: {
+    long: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+    short: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+  },
+  ara: {
+    long: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+    short: ['ينا', 'فبر', 'مار', 'أبر', 'ماي', 'يون', 'يول', 'أغس', 'سبت', 'أكت', 'نوف', 'ديس']
+  }
 };
 
-let defaults = {
+const defaults = {
   inline: false,
   classes: '',
   lang: 'eng',
   container: '',
   minDate: '',
   range: false,
-  months: months,
-  days: days,
+  months: monthsDario,
+  days: daysDario,
   showSelected: false,
   minStay: 1,
   center: false,
@@ -49,7 +97,7 @@ class Dario {
     this.$el = getEl(el);
     if (!this.$el) return;
 
-    let opts = { ...defaults, ...settings };
+    const opts = { ...defaults, ...settings };
     for (const prop in opts) {
       this[prop] = opts[prop];
     }
@@ -80,7 +128,7 @@ class Dario {
   }
 
   init() {
-    let { $target, inline } = this;
+    const { $target, inline } = this;
     this.returnCallBack();
 
     if (!inline) {
@@ -132,7 +180,7 @@ class Dario {
   }
 
   createDOM() {
-    let { $dario, classes, range, inline, container } = this;
+    const { $dario, classes, range, inline, container } = this;
 
     if (classes) {
       $dario.classList.add(...classes.split(' '));
@@ -163,13 +211,13 @@ class Dario {
   }
 
   setPosition() {
-    let { $target } = this;
-    let pos = $target.getBoundingClientRect();
-    let xPos =
+    const { $target } = this;
+    const pos = $target.getBoundingClientRect();
+    const xPos =
       window.innerWidth - pos.right < pos.left
         ? `right: ${window.innerWidth - pos.right}px;`
         : `left: ${pos.left}px;`;
-    let yPos =
+    const yPos =
       window.innerHeight - pos.bottom < pos.top
         ? `bottom: ${window.innerHeight - pos.top - window.scrollY}px;`
         : `top: ${pos.top + (pos.bottom - pos.top) + window.scrollY}px;`;
@@ -184,21 +232,25 @@ class Dario {
   }
 
   setMinDate() {
-    if (this.$target.dataset.mindate != undefined) {
+    if (this.$target.dataset.mindate !== undefined) {
       this.minDate = new Date(this.$target.dataset.mindate);
-      return (this.minDate =
-        !isNaN(this.minDate) && this.minDate.getTime() >= Date.now() ? this.minDate : new Date());
+      this.minDate =
+        !Number.isNaN(this.minDate) && this.minDate.getTime() >= Date.now()
+          ? this.minDate
+          : new Date();
+      return this.minDate;
     }
 
     if (this.minDate) {
       return this.minDate;
     }
 
-    return (this.minDate = new Date());
+    this.minDate = new Date();
+    return this.minDate;
   }
 
   _buildNav() {
-    let template = `<div class="dario-nav">
+    const template = `<div class="dario-nav">
             <div class="dario-nav-arrow dario-nav-arrow--prev"></div>
             <div class="dario-nav-center"></div>
             <div class="dario-nav-arrow dario-nav-arrow--next"></div>
@@ -208,13 +260,13 @@ class Dario {
   }
 
   _buildContainer() {
-    let container = createElement({ className: 'dario-container' });
+    const container = createElement({ className: 'dario-container' });
     if (this.range && !this.inline) container.classList.add('dario-container--multi');
     this.$dario.appendChild(container);
   }
 
   _buildInner(className) {
-    let inner = createElement({ className: `dario-inner ${className}` });
+    const inner = createElement({ className: `dario-inner ${className}` });
     this.$dario.querySelector('.dario-container').appendChild(inner);
     if (this.inline) this._buildMonths(inner);
     this._buildHeader(inner);
@@ -222,7 +274,7 @@ class Dario {
   }
 
   _buildHeader(el) {
-    let template = `<div class="dario-header">
+    const template = `<div class="dario-header">
             <div class="dario-header-week"></div>
         </div>`;
 
@@ -230,13 +282,13 @@ class Dario {
   }
 
   _buildMonths(el) {
-    let template = `<div class="dario-month"></div>`;
+    const template = `<div class="dario-month"></div>`;
 
     el.innerHTML += template;
   }
 
   _buildContent(el) {
-    let template = `<div class="dario-content">
+    const template = `<div class="dario-content">
             <div class="dario-content-days"></div>
         </div>`;
 
@@ -256,7 +308,7 @@ class Dario {
     document.addEventListener('click', event => {
       if (
         event.target.closest('.dario') === null &&
-        event.target.closest('#' + this.$target.id) === null
+        event.target.closest(`#${this.$target.id}`) === null
       ) {
         this.hide();
       }
@@ -264,8 +316,8 @@ class Dario {
   }
 
   registerNavEvents() {
-    let prev = getEl('.dario-nav-arrow--prev');
-    let next = getEl('.dario-nav-arrow--next');
+    const prev = getEl('.dario-nav-arrow--prev');
+    const next = getEl('.dario-nav-arrow--next');
 
     prev.addEventListener('click', event => {
       event.stopPropagation();
@@ -287,16 +339,16 @@ class Dario {
   registerCellEvents() {
     const cellNodes = document.querySelectorAll('.dario-cell:not(.dario-cell--disable)');
 
-    cellNodes.forEach(cell => {
+    for (const cell of cellNodes) {
       cell.addEventListener('click', e => {
         e.stopPropagation();
         if (this.range) {
-          let checkDate = parseInt(cell.dataset.time);
-          let currentMinStay = this.#startDate + this.minStay * 86400000;
+          const checkDate = Number.parseInt(cell.dataset.time);
+          const currentMinStay = this.#startDate + this.minStay * 86400000;
 
-          if (this.#startDate == 0) {
+          if (this.#startDate === 0) {
             this.#startDate = checkDate;
-          } else if (this.#endDate == 0) {
+          } else if (this.#endDate === 0) {
             if (checkDate <= this.#startDate) {
               this.#startDate = checkDate;
             } else if (checkDate < currentMinStay) {
@@ -313,7 +365,7 @@ class Dario {
           this.render();
           this.registerCellEvents();
         } else {
-          this.#startDate = parseInt(cell.dataset.time);
+          this.#startDate = Number.parseInt(cell.dataset.time);
           this.returnCallBack();
           this.hide();
         }
@@ -321,7 +373,7 @@ class Dario {
 
       if (this.range) {
         cell.addEventListener('mouseover', () => {
-          let currentTime = parseInt(cell.dataset.time);
+          const currentTime = Number.parseInt(cell.dataset.time);
           for (let inner = 0; inner < cellNodes.length; inner++) {
             const innerNode = cellNodes[inner];
             innerNode.classList.remove('dario-cell--hover');
@@ -329,9 +381,9 @@ class Dario {
               currentTime > this.#startDate &&
               this.isSelectable(innerNode) &&
               this.#startDate > 0 &&
-              this.#endDate == 0
+              this.#endDate === 0
             ) {
-              const innerTime = parseInt(innerNode.dataset.time);
+              const innerTime = Number.parseInt(innerNode.dataset.time);
               const currentMinStay = this.#startDate + this.minStay * 86400000;
               if (
                 innerTime > this.#startDate &&
@@ -339,14 +391,14 @@ class Dario {
               ) {
                 innerNode.classList.add('dario-cell--hover');
                 if (innerTime < currentMinStay) {
-                  innerNode.style.cssText = `cursor: not-allowed`;
+                  innerNode.style.cssText = 'cursor: not-allowed';
                 }
               }
             }
           }
         });
       }
-    });
+    }
   }
 
   isSelectable(element) {
@@ -355,7 +407,7 @@ class Dario {
 
   returnCallBack() {
     if (this.onSelect !== undefined) {
-      let startDate = this.#startDate > 0 ? new Date(this.#startDate) : new Date(this.minDate);
+      const startDate = this.#startDate > 0 ? new Date(this.#startDate) : new Date(this.minDate);
       let endDate = new Date(startDate);
 
       if (this.range) {
@@ -365,17 +417,17 @@ class Dario {
         this.onSelect({
           startDate: getParsedDate(startDate),
           endDate: getParsedDate(endDate),
-          startMonth: this.months[this.lang][startDate.getMonth()],
-          startMonthShort: this.months[this.lang][startDate.getMonth()].substring(0, 3),
-          endMonth: this.months[this.lang][endDate.getMonth()],
-          endMonthShort: this.months[this.lang][endDate.getMonth()].substring(0, 3),
+          startMonth: this.months[this.lang].long[startDate.getMonth()],
+          startMonthShort: this.months[this.lang].short[startDate.getMonth()],
+          endMonth: this.months[this.lang].long[endDate.getMonth()],
+          endMonthShort: this.months[this.lang].short[endDate.getMonth()],
           nights: nights(startDate, endDate),
         });
       } else {
         this.onSelect({
           startDate: getParsedDate(startDate),
-          startMonth: this.months[this.lang][startDate.getMonth()],
-          startMonthShort: this.months[this.lang][startDate.getMonth()].substring(0, 3),
+          startMonth: this.months[this.lang].long[startDate.getMonth()],
+          startMonthShort: this.months[this.lang].short[startDate.getMonth()],
         });
       }
     }
@@ -397,26 +449,26 @@ class Dario {
   }
 
   renderNavLeft() {
-    let visible = this.#visibleDate.getTime() > this.minDate.getTime();
-    let prev = getEl('.dario-nav-arrow--prev');
+    const visible = this.#visibleDate.getTime() > this.minDate.getTime();
+    const prev = getEl('.dario-nav-arrow--prev');
 
     prev.style.cssText = `visibility: ${visible ? 'visible' : 'hidden'}`;
     prev.innerHTML = '<svg><path d="M 17,12 l -5,5 l 5,5"></path></svg>';
   }
 
   renderNavRight() {
-    let next = getEl('.dario-nav-arrow--next');
+    const next = getEl('.dario-nav-arrow--next');
     next.innerHTML = '<svg><path d="M 14,12 l 5,5 l -5,5"></path></svg>';
   }
 
   renderNavCenter() {
     this.navCenter = getEl('.dario-nav-center');
     this.navCenter.innerHTML = `${
-      this.months[this.lang][this.#visibleDate.getMonth()]
+      this.months[this.lang].long[this.#visibleDate.getMonth()]
     } ${this.#visibleDate.getFullYear()}`;
     if (this.range) {
       this.navCenter.innerHTML += `<span class="dario-nav-center--next"> - ${
-        this.months[this.lang][this.#visibleDateNext.getMonth()]
+        this.months[this.lang].long[this.#visibleDateNext.getMonth()]
       } ${this.#visibleDateNext.getFullYear()}</span>`;
     }
   }
@@ -425,24 +477,24 @@ class Dario {
     if (this.#visible) return;
     const headers = document.querySelectorAll('.dario-inner .dario-header-week');
 
-    headers.forEach(header => {
-      for (let i = 0; i < this.days[this.lang].length; i++) {
-        header.innerHTML += `<div>${this.days[this.lang][i].substring(0, 2)}</div>`;
+    for (const header of headers) {
+      for (let i = 0; i < 7; i++) {
+        header.innerHTML += `<div>${this.days[this.lang].short[i]}</div>`;
       }
-    });
+    }
   }
 
   renderMonths() {
     if (this.#visible) return;
     const months = document.querySelectorAll('.dario-inner .dario-month');
-    let currentVisibleDate = new Date(this.#visibleDate);
+    const currentVisibleDate = new Date(this.#visibleDate);
 
     months.forEach((month, index) => {
       const dateToRender = new Date(currentVisibleDate);
       dateToRender.setMonth(currentVisibleDate.getMonth() + index);
 
       month.innerHTML = `${
-        this.months[this.lang][dateToRender.getMonth()]
+        this.months[this.lang].long[dateToRender.getMonth()]
       } ${dateToRender.getFullYear()}`;
     });
   }
@@ -451,7 +503,7 @@ class Dario {
     const contents = document.querySelectorAll('.dario-inner .dario-content-days');
 
     // Crea una copia della data iniziale
-    let currentVisibleDate = new Date(this.#visibleDate);
+    const currentVisibleDate = new Date(this.#visibleDate);
 
     contents.forEach((content, index) => {
       // Aggiorna il mese in base all'indice dell'iterazione
@@ -464,45 +516,45 @@ class Dario {
   }
 
   renderCell(date) {
-    let dow = dayOfWeek(date);
+    const dow = dayOfWeek(date);
     let cell = '';
-    let { time: today } = getParsedDate(resetTime(this.minDate));
-    let endDate = new Date(today);
+    const { time: today } = getParsedDate(resetTime(this.minDate));
+    const endDate = new Date(today);
     endDate.setDate(endDate.getDate() + this.minStay);
-    let { time: tomorrow } = getParsedDate(endDate);
+    const { time: tomorrow } = getParsedDate(endDate);
 
     for (let i = 1 - dow; i <= 42 - dow; i++) {
       if (i >= 1 && i <= lastDayOfMonth(date)) {
-        let {
+        const {
           date: d,
           fullDate: dd,
           fullMonth: mm,
           year: yy,
           time: current,
         } = getParsedDate(new Date(date.getFullYear(), date.getMonth(), i));
-        let selected =
-          current == this.#startDate || current == this.#endDate ? ' dario-cell--selected' : '';
-        let selectedStart =
-          (current == today || (current == tomorrow && this.range)) &&
+        const selected =
+          current === this.#startDate || current === this.#endDate ? ' dario-cell--selected' : '';
+        const selectedStart =
+          (current === today || (current === tomorrow && this.range)) &&
           this.showSelected &&
-          this.#startDate == 0
+          this.#startDate === 0
             ? ' dario-cell--selected'
             : '';
-        let startInnerCheck = this.#startDate || today;
-        let endInnerCheck =
+        const startInnerCheck = this.#startDate || today;
+        const endInnerCheck =
           this.#startDate > 0 && this.#endDate > 0
             ? this.#endDate
             : this.#startDate > 0
             ? today
             : tomorrow;
-        let selectedInner =
+        const selectedInner =
           startInnerCheck > 0 &&
           endInnerCheck > 0 &&
           current > startInnerCheck &&
           current < endInnerCheck
             ? ' dario-cell--inner'
             : '';
-        let disable = current < today ? ' dario-cell--disable' : '';
+        const disable = current < today ? ' dario-cell--disable' : '';
 
         cell += `<div class="dario-cell${selected}${selectedStart}${disable}${selectedInner}" data-time="${current}" data-date="${dd}-${mm}-${yy}">${d}</div>`;
       } else {
@@ -514,11 +566,11 @@ class Dario {
 }
 
 function getEl(el, context = document) {
-  return typeof el === 'string' ? context['querySelector'](el) : el;
+  return typeof el === 'string' ? context.querySelector(el) : el;
 }
 
 function createElement({ tagName = 'div', className = '', id = '' } = {}) {
-  let $element = document.createElement(tagName);
+  const $element = document.createElement(tagName);
   if (className) $element.classList.add(...className.split(' '));
   if (id) $element.id = id;
 
@@ -530,9 +582,9 @@ function getParsedDate(date) {
     year: date.getFullYear(),
     yearShort: date.getFullYear().toString().substr(-2),
     month: date.getMonth(),
-    fullMonth: date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1,
+    fullMonth: date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1,
     date: date.getDate(),
-    fullDate: date.getDate() < 10 ? '0' + date.getDate() : date.getDate(),
+    fullDate: date.getDate() < 10 ? `0${date.getDate()}` : date.getDate(),
     day: date.getDay(),
     time: date.getTime(),
   };
@@ -549,7 +601,7 @@ function lastDayOfMonth(date) {
 
 function dayOfWeek(date) {
   const day = date.getDay();
-  return day == 0 ? 6 : day - 1;
+  return day === 0 ? 6 : day - 1;
 }
 
 function nights(checkin, checkout) {
