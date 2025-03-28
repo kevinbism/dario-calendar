@@ -31,6 +31,10 @@ const daysDario = {
     long: ['الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'],
     short: ['ن', 'ث', 'ر', 'خ', 'ج', 'س', 'ح'],
   },
+  chi: {
+    long: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天'],
+    short: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期天'],
+  },
 };
 
 // prettier-ignore
@@ -66,6 +70,10 @@ const monthsDario = {
   ara: {
     long: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
     short: ['ينا', 'فبر', 'مار', 'أبر', 'ماي', 'يون', 'يول', 'أغس', 'سبت', 'أكت', 'نوف', 'ديس']
+  },
+  chi: {
+    long: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+    short: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
   }
 };
 
@@ -344,14 +352,14 @@ class Dario {
         e.stopPropagation();
         if (this.range) {
           const checkDate = Number.parseInt(cell.dataset.time);
-          const currentMinStay = this.#startDate + this.minStay * 86400000;
+          const daysDiff = Math.round((checkDate - this.#startDate) / 86400000);
 
           if (this.#startDate === 0) {
             this.#startDate = checkDate;
           } else if (this.#endDate === 0) {
             if (checkDate <= this.#startDate) {
               this.#startDate = checkDate;
-            } else if (checkDate < currentMinStay) {
+            } else if (daysDiff < this.minStay) {
               return;
             } else {
               this.#endDate = checkDate;
@@ -384,13 +392,15 @@ class Dario {
               this.#endDate === 0
             ) {
               const innerTime = Number.parseInt(innerNode.dataset.time);
+              const daysDiff = Math.round((innerTime - this.#startDate) / 86400000);
               const currentMinStay = this.#startDate + this.minStay * 86400000;
+
               if (
                 innerTime > this.#startDate &&
                 innerTime <= (currentTime > currentMinStay ? currentTime : currentMinStay)
               ) {
                 innerNode.classList.add('dario-cell--hover');
-                if (innerTime < currentMinStay) {
+                if (daysDiff < this.minStay) {
                   innerNode.style.cssText = 'cursor: not-allowed';
                 }
               }
